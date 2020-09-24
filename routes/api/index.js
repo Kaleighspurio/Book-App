@@ -23,13 +23,21 @@ router.get('/search/keyword/:keyword/author/:author', (req, res) => {
   });
 });
 
-// Get from google books by keyword adn subject
-router.get('/search/keyword/:keyword/subject/:subject', (req, res) => {
+// Get from Google Books by author only
+router.get('/search/author/:author', (req, res) => {
   console.log(req.params);
-  axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+suject:${req.params.subject}&maxResults=40&key=${process.env.API_KEY}`).then((response) => {
+  axios.get(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.params.author}&maxResults=40&key=${process.env.API_KEY}`).then((response) => {
     res.json(response.data);
   });
 });
+
+// // Get from google books by keyword adn subject
+// router.get('/search/keyword/:keyword/subject/:subject', (req, res) => {
+//   console.log(req.params);
+//   axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+suject:${req.params.subject}&maxResults=40&key=${process.env.API_KEY}`).then((response) => {
+//     res.json(response.data);
+//   });
+// });
 
 // Add more googlebook routes for all possible search possiblities
 

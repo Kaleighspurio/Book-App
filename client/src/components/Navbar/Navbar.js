@@ -11,7 +11,7 @@ export default function Navbar() {
       <div>
         <AppBar position="static" color="primary">
           <Toolbar>
-            <Grid justify="space-between" container spacing={24}>
+            <Grid justify="space-between" container>
               <Grid item>
                 <Typography variant="h6">My Bookshelf</Typography>
               </Grid>
