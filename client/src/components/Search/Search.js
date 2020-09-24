@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 export default function Search() {
 
     // Handle input change functions
+
+    // handle search button click to call googlebooks api
   return (
     <form noValidate autoComplete="off">
       <TextField

@@ -26,8 +26,7 @@ export default function Home() {
           
         </Grid>
         <Grid container justify="center">
-          <Button color="primary">Login</Button>
-          <Button color="primary">Sign up</Button>
+            {/* Display search results here? */}
         </Grid>
       </div>
     </>
