@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../AuthContext';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -7,9 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 
-
-
 export default function Navbar({ setRender }) {
+  const { isAuth } = useContext(AuthContext);
   return (
     <>
       <div>
@@ -20,23 +20,35 @@ export default function Navbar({ setRender }) {
                 <Typography variant="h6">My Bookshelf</Typography>
               </Grid>
               <Grid item>
-                <IconButton aria-label="search" color="inherit" onClick={() => setRender('search')} >
+                <IconButton
+                  aria-label="search"
+                  color="inherit"
+                  onClick={() => setRender('search')}
+                >
                   <SearchIcon />
                 </IconButton>
-                <Button
-                  size="small"
-                  variant="contained"
-                  onClick={() => setRender('login')}
-                >
-                  Login
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  onClick={() => setRender('signup')}
-                >
-                  Sign up
-                </Button>
+                {!isAuth ? (
+                  <>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => setRender('login')}
+                    >
+                      Login
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => setRender('signup')}
+                    >
+                      Sign up
+                    </Button>
+                  </>
+                ) : (
+                  <Button size="small" variant="contained">
+                    logout
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </Toolbar>

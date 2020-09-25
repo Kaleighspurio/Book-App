@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../AuthContext';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../components/Navbar/Navbar';
 import Search from '../components/Search/Search';
@@ -8,6 +10,7 @@ import Login from '../components/Login/Login';
 import Signup from '../components/Signup/Signup';
 
 export default function Home() {
+  const { setIsAuth } = useContext(AuthContext);
   const [search, setSearch] = useState({});
   const [searchResults, setSearchResults] = useState();
   const [login, setLogin] = useState();
@@ -23,10 +26,14 @@ export default function Home() {
     setLogin({ ...login, [name]: value });
   };
 
+  const history = useHistory();
+
   const handleLogin = (event) => {
     if (login.email && login.password) {
       axios.post(`api/auth/login`, login).then((response) => {
-        console.log(response)
+        console.log(response);
+        setIsAuth(true);
+        history.push('/mybooks');
       })
     } else {
       console.log("Oops, we're missing a email or password")

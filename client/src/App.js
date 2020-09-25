@@ -9,6 +9,7 @@ import { AuthProvider, AuthContext } from './AuthContext';
 import Home from './pages/Home';
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
+import MyBooks from './pages/MyBooks/MyBooks';
 import Navbar from './components/Navbar/Navbar';
 
 
@@ -32,7 +33,7 @@ function App() {
     <Route
       {...rest}
       render={(props) =>
-        isAuth ? <Component {...props} /> : <Redirect to="/login" />
+        isAuth ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );
@@ -45,6 +46,7 @@ function App() {
       <Route exact path="/" component={Home} />
       <Route exact path='/login' compontent={Login} />
       <Route exact path='/signup' compontent={Signup} />
+      <PrivateRoute exact path='/mybooks' component={MyBooks} />
       {/* <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/signup" render={props => <Signup {...props} />} />
         <PrivateRoute exact path="/members" component={Members} />
