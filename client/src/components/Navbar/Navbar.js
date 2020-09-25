@@ -4,8 +4,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
 
-export default function Navbar() {
+
+
+export default function Navbar({ setRender }) {
   return (
     <>
       <div>
@@ -16,10 +20,21 @@ export default function Navbar() {
                 <Typography variant="h6">My Bookshelf</Typography>
               </Grid>
               <Grid item>
-                <Button size="small" variant="contained">
+                <IconButton aria-label="search" color="inherit" onClick={() => setRender('search')} >
+                  <SearchIcon />
+                </IconButton>
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={() => setRender('login')}
+                >
                   Login
                 </Button>
-                <Button size="small" variant="contained">
+                <Button
+                  size="small"
+                  variant="contained"
+                  onClick={() => setRender('signup')}
+                >
                   Sign up
                 </Button>
               </Grid>

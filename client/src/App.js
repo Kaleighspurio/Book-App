@@ -7,9 +7,10 @@ import {
 } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './AuthContext';
 import Home from './pages/Home';
-// import Signup from "./pages/Signup";
-// import Login from "./pages/OldPages/Login";
-// import Members from "./pages/Members";
+import Signup from "./components/Signup/Signup";
+import Login from "./components/Login/Login";
+import Navbar from './components/Navbar/Navbar';
+
 
 // Even though this is the App.js file, in the end we are not exactly exporting
 // the App component.  We actually set up the app component to implement our react
@@ -37,14 +38,20 @@ function App() {
   );
 
   return (
+    <>
     <Router>
       {/* <Switch> */}
+      <Switch>
       <Route exact path="/" component={Home} />
+      <Route exact path='/login' compontent={Login} />
+      <Route exact path='/signup' compontent={Signup} />
       {/* <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/signup" render={props => <Signup {...props} />} />
         <PrivateRoute exact path="/members" component={Members} />
       </Switch> */}
+      </Switch>
     </Router>
+    </>
   );
 }
 

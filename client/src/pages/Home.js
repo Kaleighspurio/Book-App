@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Nav from '../components/Navbar/Navbar';
+import Navbar from '../components/Navbar/Navbar';
 import Search from '../components/Search/Search';
 import BookCard from '../components/BookCard/BookCard';
 import Grid from '@material-ui/core/Grid';
+import Login from '../components/Login/Login';
+import Signup from '../components/Signup/Signup';
 
 export default function Home() {
   const [search, setSearch] = useState({});
   const [searchResults, setSearchResults] = useState();
+  const [render, setRender] = useState('search')
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -56,8 +59,10 @@ export default function Home() {
 
   return (
     <>
-      <Nav />
+      <Navbar setRender={setRender} />
       <div>
+        { render === 'search' ? 
+        <>
         <Grid container justify="center" spacing={3}>
           <Grid item xs={10} sm={8} md={8}>
             <p>
@@ -83,6 +88,7 @@ export default function Home() {
               ))
             : null}
         </Grid>
+        </> : render === 'login' ? <Login /> : <Signup /> }
       </div>
     </>
   );
