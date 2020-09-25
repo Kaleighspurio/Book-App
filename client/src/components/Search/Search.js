@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-export default function Search({ handleInputChange, handleSearch }) {
+export default function Search({ handleSearchInputChange, handleSearch }) {
   return (
     <form noValidate autoComplete="off">
       <TextField
@@ -13,7 +13,7 @@ export default function Search({ handleInputChange, handleSearch }) {
         fullWidth={true}
         margin="normal"
         size="small"
-        onChange={handleInputChange}
+        onChange={handleSearchInputChange}
       />
       <TextField
         id="outlined-basic"
@@ -23,7 +23,7 @@ export default function Search({ handleInputChange, handleSearch }) {
         fullWidth={true}
         margin="normal"
         size="small"
-        onChange={handleInputChange}
+        onChange={handleSearchInputChange}
       />
       {/* <TextField
         id="outlined-basic"
@@ -33,7 +33,7 @@ export default function Search({ handleInputChange, handleSearch }) {
         fullWidth={true}
         margin="normal"
         size="small"
-        onChange={handleInputChange}
+        onChange={handleSearchInputChange}
       /> */}
       <Button
         color="primary"
