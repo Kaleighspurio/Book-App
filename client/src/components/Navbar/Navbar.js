@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../AuthContext';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 export default function Navbar({ setRender }) {
   const { isAuth } = useContext(AuthContext);
+  const history = useHistory();
   return (
     <>
       <div>
@@ -20,15 +22,15 @@ export default function Navbar({ setRender }) {
                 <Typography variant="h6">My Bookshelf</Typography>
               </Grid>
               <Grid item>
-                <IconButton
+                {!isAuth ? (
+                  <>
+                  <IconButton
                   aria-label="search"
                   color="inherit"
                   onClick={() => setRender('search')}
                 >
                   <SearchIcon />
-                </IconButton>
-                {!isAuth ? (
-                  <>
+                </IconButton>                
                     <Button
                       size="small"
                       variant="contained"
@@ -45,9 +47,18 @@ export default function Navbar({ setRender }) {
                     </Button>
                   </>
                 ) : (
+                  <>
+                  <IconButton
+                  aria-label="search"
+                  color="inherit"
+                  onClick={() => history.push('/')}
+                >
+                  <SearchIcon />
+                </IconButton> 
                   <Button size="small" variant="contained">
                     logout
                   </Button>
+                  </>
                 )}
               </Grid>
             </Grid>

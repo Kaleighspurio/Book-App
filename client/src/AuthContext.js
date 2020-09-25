@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom'
 export const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [isAuth, setIsAuth] = useState(false)
+    const [isAuth, setIsAuth] = useState(false);
+    const [userId, setUserId] = useState();
 
     useEffect(() => {
         checkAuth()
@@ -31,5 +32,5 @@ export const AuthProvider = ({ children }) => {
           .catch(err => console.log(err));
       };
 
-    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ isAuth, setIsAuth, checkAuth, logout, userId, setUserId }}>{children}</AuthContext.Provider>;
 };

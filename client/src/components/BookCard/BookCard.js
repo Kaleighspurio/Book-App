@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AuthContext } from '../../AuthContext';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,11 +8,27 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import BookRoundedIcon from '@material-ui/icons/BookRounded';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Button from '@material-ui/core/Button';
 import './BookCard.css';
 
 export default function BookCard({ info }) {
+  const { isAuth, userId } = useContext(AuthContext);
   console.log(info);
+
+  const addToMyBooks = () => {
+// axios post to book table
+  }
+
+  const addToFavorites = () => {
+    // User can only do this if they already added the book...
+// axios put to make favorite true
+  }
+
+  const markAsRead = () => {
+    // axios put to mark as read, or unread depending on current ...
+  }
+
   return (
     <Card className="book-card" raised={true}>
       {info.imageLinks ? (
@@ -38,12 +55,18 @@ export default function BookCard({ info }) {
         )) : null}
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        { !isAuth ? <IconButton aria-label="add to favorites">
+          <AddCircleOutlineIcon onClick={addToMyBooks} />
+        </IconButton>
+        : 
+        <>
+        <IconButton aria-label="mark as read">
+          <FavoriteIcon onClick={addToFavorites}/>
         </IconButton>
         <IconButton aria-label="mark as read">
           <BookRoundedIcon />
         </IconButton>
+        </>}
         <Button size="small" color="primary">
           Learn More
         </Button>

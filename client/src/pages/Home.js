@@ -10,7 +10,7 @@ import Login from '../components/Login/Login';
 import Signup from '../components/Signup/Signup';
 
 export default function Home() {
-  const { setIsAuth } = useContext(AuthContext);
+  const { setIsAuth, userId, setUserId } = useContext(AuthContext);
   const [search, setSearch] = useState({});
   const [searchResults, setSearchResults] = useState();
   const [login, setLogin] = useState();
@@ -33,6 +33,7 @@ export default function Home() {
       axios.post(`api/auth/login`, login).then((response) => {
         console.log(response);
         setIsAuth(true);
+        setUserId(response.data.id);
         history.push('/mybooks');
       })
     } else {

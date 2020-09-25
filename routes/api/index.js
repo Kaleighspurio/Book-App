@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const axios = require('axios');
+const db = require('../../models');
 const isAuthenticated = require('../../config/middleware/isAuthenticated');
 
 router.get('/secrets', isAuthenticated, (req, res) => {
@@ -39,6 +40,14 @@ router.get('/search/author/:author', (req, res) => {
 //   });
 // });
 
-// Add more googlebook routes for all possible search possiblities
+// Add more googlebook routes for all possible search possiblities?
+router.get('/mybooks/:id', (req, res) => {
+  db.Book.findAll({
+    where: { UserId: req.params.id },
+  }).then((data) => {
+    console.log(data);
+    res.json(data);
+  });
+});
 
 module.exports = router;
