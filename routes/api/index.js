@@ -94,4 +94,47 @@ router.post('/addbook/:id', (req, res) => {
   });
 });
 
+router.put('/mybooks/:userId/favorite-book/:bookid', (req, res) => {
+  db.Book.update({
+    is_favorite: true,
+  }, {
+    where: {
+      id: req.params.bookid,
+      UserId: req.params.userId,
+    },
+  }).then((response) => {
+    console.log(response);
+    res.json(response);
+  });
+});
+
+router.put('/mybooks/:userId/read-book/:bookid', (req, res) => {
+  db.Book.update({
+    have_read: true,
+  }, {
+    where: {
+      id: req.params.bookid,
+      UserId: req.params.userId,
+    },
+  }).then((response) => {
+    console.log(response);
+    res.json(response);
+  });
+});
+
+router.put('/mybooks/:userId/unread-book/:bookid', (req, res) => {
+  db.Book.update({
+    have_read: false,
+  }, {
+    where: {
+      id: req.params.bookid,
+      UserId: req.params.userId,
+    },
+  }).then((response) => {
+    console.log(response);
+    res.json(response);
+  });
+});
+
+
 module.exports = router;
