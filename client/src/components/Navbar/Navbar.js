@@ -55,6 +55,10 @@ export default function Navbar({ setRender }) {
                 >
                   <SearchIcon />
                 </IconButton> 
+                <Button size="small" variant="contained"
+                onClick={() => history.push('/mybooks')}>
+                    My Books
+                  </Button>
                   <Button size="small" variant="contained">
                     logout
                   </Button>

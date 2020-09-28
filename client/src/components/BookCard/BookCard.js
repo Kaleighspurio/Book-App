@@ -40,6 +40,7 @@ export default function BookCard({ info }) {
 // axios post to book table
     axios.post(`api/addbook/${userId}`, bookObject).then((response) => {
       console.log(response)
+      console.log(`${response.data.title} was successfully added to your books`)
     })
   }
 
@@ -58,13 +59,22 @@ export default function BookCard({ info }) {
         <CardMedia
           className="thumbnail-image"
           component="img"
-          image={info.imageLinks.smallThumbnail}
+          image={info.imageLinks.thumbnail || info.image}
+          alt="book cover"
         />
-      ) : (
+      ) : info.image ? (
+        <CardMedia
+          className="thumbnail-image"
+          component="img"
+          image={info.image}
+          alt="book cover"
+        />
+      ) :(
         <CardMedia
           component="img"
           className="thumbnail-image"
           image="book-cover-placeholder.jpg"
+          alt='placeholder book cover'
         />
       )}
       <CardContent>
@@ -75,7 +85,17 @@ export default function BookCard({ info }) {
           <Typography variant="body2" color="textSecondary" component="p">
             {author}
           </Typography>
-        )) : null}
+        )) : info.author1 ? ( <>
+        <Typography variant="body2" color="textSecondary" component="p">
+        {info.author1}
+      </Typography> <Typography variant="body2" color="textSecondary" component="p">
+        {info.author2}
+      </Typography> <Typography variant="body2" color="textSecondary" component="p">
+        {info.author3}
+      </Typography> <Typography variant="body2" color="textSecondary" component="p">
+        {info.author4}
+      </Typography> 
+      </>): null}
       </CardContent>
       <CardActions disableSpacing>
         { isAuth ? (

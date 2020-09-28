@@ -87,9 +87,10 @@ router.post('/addbook/:id', (req, res) => {
     }
   }).then(([book, created]) => {
     console.log(book.get({
-      plain: true
+      plain: true,
     }));
-    console.log(created)
+    console.log(created);
+    res.json(book);
   });
 });
 
