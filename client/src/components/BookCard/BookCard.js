@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../AuthContext';
+import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,7 +18,29 @@ export default function BookCard({ info }) {
   console.log(info);
 
   const addToMyBooks = () => {
+    const bookObject = {
+      title: info.title,
+      subtitle: info.subtitle,
+      author1: info.authors[0],
+      author2: info.authors[1] || null,
+      author3: info.authors[2] || null,
+      author4: info.authors[3] || null,
+      description: info.description,
+      image: info.imageLinks.thumbnail,
+      link: info.infoLink,
+      publisher: info.publisher,
+      publish_date: info.publishedDate,
+      page_count: info.pageCount,
+      isbn: info.industryIdentifiers[0].identifier,
+      categories: info.categories[0],
+      average_rating: info.averageRating,
+      have_read: false,
+      is_favorite: false
+    }
 // axios post to book table
+    axios.post(`api/addbook/${userId}`, bookObject).then((response) => {
+      console.log(response)
+    })
   }
 
   const addToFavorites = () => {
@@ -55,18 +78,19 @@ export default function BookCard({ info }) {
         )) : null}
       </CardContent>
       <CardActions disableSpacing>
-        { !isAuth ? <IconButton aria-label="add to favorites">
+        { isAuth ? (
+          <>
+        <IconButton aria-label="add to favorites">
           <AddCircleOutlineIcon onClick={addToMyBooks} />
         </IconButton>
-        : 
-        <>
-        <IconButton aria-label="mark as read">
+        <IconButton aria-label="add to favorites">
           <FavoriteIcon onClick={addToFavorites}/>
         </IconButton>
         <IconButton aria-label="mark as read">
           <BookRoundedIcon />
         </IconButton>
-        </>}
+        </> ) : null }
+
         <Button size="small" color="primary">
           Learn More
         </Button>
