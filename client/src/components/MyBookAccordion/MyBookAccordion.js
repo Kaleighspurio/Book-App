@@ -20,6 +20,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Avatar from '@material-ui/core/Avatar';
+import Snackbar from '@material-ui/core/Snackbar';
 
 export default function MyBookAccordion({
   info,
@@ -31,6 +32,26 @@ export default function MyBookAccordion({
   const [expanded, setExpanded] = useState(false);
   const { userId } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [state, setState] = useState({
+    vertical: 'top',
+    horizontal: 'center',
+  });
+
+  const { vertical, horizontal } = state;
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleFavoriteClick = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
 
   const authorArray = [];
   authorArray.push(info.author1);
@@ -58,6 +79,7 @@ export default function MyBookAccordion({
       .put(`api/mybooks/${userId}/favorite-book/${info.id}`)
       .then((response) => {
         console.log(response);
+        handleFavoriteClick();
       });
   };
 
@@ -118,7 +140,11 @@ export default function MyBookAccordion({
               <Avatar alt={info.title} src={info.image} />
             </Grid>
             <Grid item xs={5}>
-              <Typography>{info.title}</Typography>
+              <Typography>
+                {info.title}
+                <br />
+                <Typography variant="caption">{info.subtitle}</Typography>
+              </Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography>Author(s): {authorArray.join(', ')}</Typography>
@@ -190,6 +216,14 @@ export default function MyBookAccordion({
               ) : null}
             </Grid>
           </Grid>
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={5000}
+            onClose={handleCloseSnackbar}
+            anchorOrigin={{ vertical, horizontal }}
+            message={`${info.title} has been added to your Favorites!`}
+            key={vertical + horizontal}
+          />
         </AccordionDetails>
       </Accordion>
 
