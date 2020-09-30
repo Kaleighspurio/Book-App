@@ -11,8 +11,15 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import BookRoundedIcon from '@material-ui/icons/BookRounded';
 import CancelIcon from '@material-ui/icons/Cancel';
+import Tooltip from '@material-ui/core/Tooltip';
 
-export default function MyBookAccordion({ info, getBooks, readStatus, showRead, getFavoriteBooks }) {
+export default function MyBookAccordion({
+  info,
+  getBooks,
+  readStatus,
+  showRead,
+  getFavoriteBooks,
+}) {
   const [expanded, setExpanded] = React.useState(false);
   const { userId } = useContext(AuthContext);
 
@@ -51,12 +58,12 @@ export default function MyBookAccordion({ info, getBooks, readStatus, showRead, 
 
   const removeFromFavorites = () => {
     axios
-    .put(`api/mybooks/${userId}/favorite-book/${info.id}/remove`)
-    .then((response) => {
-      console.log(response);
-      getFavoriteBooks();
-    });
-  }
+      .put(`api/mybooks/${userId}/favorite-book/${info.id}/remove`)
+      .then((response) => {
+        console.log(response);
+        getFavoriteBooks();
+      });
+  };
 
   return (
     <div>
@@ -80,26 +87,44 @@ export default function MyBookAccordion({ info, getBooks, readStatus, showRead, 
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <img src={info.image} />
-              { showRead === true ? <IconButton
-                aria-label="add to favorites"
-                onClick={addToFavorites}
-              >
-                <FavoriteIcon />
-              </IconButton> : <IconButton
-                aria-label="remove from favorites"
-                onClick={removeFromFavorites}
-              >
-                <CancelIcon />
-              </IconButton>}
-              { showRead === true ? <IconButton
-                aria-label="mark as read"
-                onClick={() => markAsRead(readStatus)}
-              >
-                <BookRoundedIcon />
-                {/* <Typography>
-                  {readStatus === false ? 'Mark as Read' : 'Mark as Unread'}
-                </Typography> */}
-              </IconButton> : null}
+              {showRead === true ? (
+                <Tooltip title="Add to Favorite">
+                  <IconButton
+                    aria-label="add to favorites"
+                    onClick={addToFavorites}
+                  >
+                    <FavoriteIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Remove from Favorite">
+                  <IconButton
+                    aria-label="remove from favorites"
+                    onClick={removeFromFavorites}
+                  >
+                    <CancelIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {showRead === true && readStatus === false ? (
+                <Tooltip title="Mark as Read">
+                  <IconButton
+                    aria-label="mark as read"
+                    onClick={() => markAsRead(readStatus)}
+                  >
+                    <BookRoundedIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : showRead === true ? (
+                <Tooltip title="Mark as Unread">
+                  <IconButton
+                    aria-label="mark as Unread"
+                    onClick={() => markAsRead(readStatus)}
+                  >
+                    <BookRoundedIcon color="disabled" />
+                  </IconButton>
+                </Tooltip>
+              ) : null}
             </Grid>
             <Grid item xs={6}>
               <Typography>{info.description}</Typography>
@@ -111,7 +136,6 @@ export default function MyBookAccordion({ info, getBooks, readStatus, showRead, 
               <Typography>Pages: {info.page_count}</Typography>
               <Typography>Average Rating: {info.average_rating}</Typography>
               <Typography>ISBN: {info.isbn}</Typography>
-              
             </Grid>
           </Grid>
         </AccordionDetails>
