@@ -61,6 +61,17 @@ router.get('/mybooks/:id', isAuthenticated, (req, res) => {
   });
 });
 
+router.delete('/mybooks/:UserId/book/:bookId', (req, res) => {
+  db.Book.destroy({
+    where: {
+      UserId: req.params.UserId,
+      id: req.params.bookId,
+    },
+  }).then((data) => {
+    res.json(data);
+  });
+});
+
 router.post('/addbook/:id', (req, res) => {
   console.log(req.body);
   db.Book.findOrCreate({

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import Accordion from '@material-ui/core/Accordion';
@@ -12,19 +12,43 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import BookRoundedIcon from '@material-ui/icons/BookRounded';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Tooltip from '@material-ui/core/Tooltip';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function MyBookAccordion({
   info,
   getBooks,
   readStatus,
-  showRead,
+  myBooks,
   getFavoriteBooks,
 }) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const { userId } = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+
+  const authorArray = [];
+  authorArray.push(info.author1);
+  if (info.author2) {
+      authorArray.push(info.author2);
+  }
+  if (info.author3) {
+      authorArray.push(info.author3);
+  }
+  if (info.author4) {
+      authorArray.push(info.author4)
+  }
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const addToFavorites = () => {
@@ -65,6 +89,18 @@ export default function MyBookAccordion({
       });
   };
 
+  const triggerRemoveModal = () => {
+    setOpen(true);
+  };
+
+  const removeFromMyBooks = () => {
+    handleClose();
+    axios.delete(`api/mybooks/${userId}/book/${info.id}`).then((response) => {
+        console.log(response);
+        getBooks();
+    })
+  };
+
   return (
     <div>
       <Accordion
@@ -76,18 +112,20 @@ export default function MyBookAccordion({
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Typography>{info.title}</Typography>
-          <Typography>Author(s): </Typography>
-          <Typography>{info.author1}</Typography>
-          {info.author2 ? <Typography>, {info.author2}</Typography> : null}
-          {info.author3 ? <Typography>, {info.author3}</Typography> : null}
-          {info.author4 ? <Typography>, {info.author4}</Typography> : null}
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Typography>{info.title}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>Author(s): {authorArray.join(', ')}</Typography>
+            </Grid>
+          </Grid>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <img src={info.image} />
-              {showRead === true ? (
+              {myBooks === true ? (
                 <Tooltip title="Add to Favorite">
                   <IconButton
                     aria-label="add to favorites"
@@ -106,7 +144,7 @@ export default function MyBookAccordion({
                   </IconButton>
                 </Tooltip>
               )}
-              {showRead === true && readStatus === false ? (
+              {myBooks === true && readStatus === false ? (
                 <Tooltip title="Mark as Read">
                   <IconButton
                     aria-label="mark as read"
@@ -115,7 +153,7 @@ export default function MyBookAccordion({
                     <BookRoundedIcon />
                   </IconButton>
                 </Tooltip>
-              ) : showRead === true ? (
+              ) : myBooks === true ? (
                 <Tooltip title="Mark as Unread">
                   <IconButton
                     aria-label="mark as Unread"
@@ -136,10 +174,43 @@ export default function MyBookAccordion({
               <Typography>Pages: {info.page_count}</Typography>
               <Typography>Average Rating: {info.average_rating}</Typography>
               <Typography>ISBN: {info.isbn}</Typography>
+              {myBooks === true ? (
+                <Tooltip title="Remove from My Books">
+                  <IconButton
+                    aria-label="remove from my books"
+                    onClick={triggerRemoveModal}
+                  >
+                    <RemoveCircleOutlineIcon />
+                  </IconButton>
+                </Tooltip>
+              ) : null}
             </Grid>
           </Grid>
         </AccordionDetails>
       </Accordion>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{`Remove ${info.title} from My Books?`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You are about to remove {info.title} from your saved books. Are you
+            sure that is what you want to do?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={removeFromMyBooks} color="primary">
+            Yes
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            No
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

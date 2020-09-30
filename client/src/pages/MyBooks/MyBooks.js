@@ -35,12 +35,12 @@ export default function MyBooks() {
       <Container maxWidth="md">
         <div>Unread books</div>
         {unreadBooks.map((book) => (
-          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={book.have_read} showRead={true} />
+          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={book.have_read} myBooks={true} />
         ))}
 
         <div>Read books</div>
         {readBooks.map((book) => (
-          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={'read'} showRead={true} />
+          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={'read'} myBooks={true} />
         ))}
       </Container>
     </>
