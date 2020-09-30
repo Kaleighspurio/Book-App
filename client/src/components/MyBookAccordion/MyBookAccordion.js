@@ -20,7 +20,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Avatar from '@material-ui/core/Avatar';
-import Snackbar from '@material-ui/core/Snackbar';
+// import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarComponent from '../Snackbar/SnackbarComponent';
 
 export default function MyBookAccordion({
   info,
@@ -32,25 +33,19 @@ export default function MyBookAccordion({
   const [expanded, setExpanded] = useState(false);
   const { userId } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
-  const [state, setState] = useState({
-    vertical: 'top',
-    horizontal: 'center',
-  });
 
-  const { vertical, horizontal } = state;
-
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+ 
 
   const handleFavoriteClick = () => {
-    setOpenSnackbar(true);
+    setSnackbarOpen(true);
   };
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
-    setOpenSnackbar(false);
+    setSnackbarOpen(false);
   };
 
   const authorArray = [];
@@ -216,13 +211,10 @@ export default function MyBookAccordion({
               ) : null}
             </Grid>
           </Grid>
-          <Snackbar
-            open={openSnackbar}
-            autoHideDuration={5000}
-            onClose={handleCloseSnackbar}
-            anchorOrigin={{ vertical, horizontal }}
+          <SnackbarComponent
+            snackbarOpen={snackbarOpen}
+            handleCloseSnackbar={handleCloseSnackbar}
             message={`${info.title} has been added to your Favorites!`}
-            key={vertical + horizontal}
           />
         </AccordionDetails>
       </Accordion>
