@@ -11,7 +11,6 @@ export default function Login({ handleLogin, handleLoginInputChange }) {
     </Typography>
       <form noValidate autoComplete="off">
         <TextField
-          id="outlined-basic"
           name="email"
           type='email'
           label="Email"
@@ -22,7 +21,6 @@ export default function Login({ handleLogin, handleLoginInputChange }) {
           onChange={handleLoginInputChange}
         />
         <TextField
-          id="outlined-basic"
           name="password"
           type="password"
           label="Password"

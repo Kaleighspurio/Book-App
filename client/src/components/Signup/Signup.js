@@ -12,7 +12,6 @@ export default function Signup({ handleLoginInputChange, handleSignup }) {
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <TextField
-              id="outlined-basic"
               name="firstName"
               type="text"
               label="First Name"
@@ -25,7 +24,6 @@ export default function Signup({ handleLoginInputChange, handleSignup }) {
           </Grid>
           <Grid item xs={6}>
             <TextField
-              id="outlined-basic"
               name="lastName"
               type="text"
               label="Last Name"
@@ -37,9 +35,7 @@ export default function Signup({ handleLoginInputChange, handleSignup }) {
             />
           </Grid>
         </Grid>
-
         <TextField
-          id="outlined-basic"
           name="email"
           type="email"
           label="Email"
@@ -50,7 +46,6 @@ export default function Signup({ handleLoginInputChange, handleSignup }) {
           onChange={handleLoginInputChange}
         />
         <TextField
-          id="outlined-basic"
           name="password"
           type="password"
           label="Password"
@@ -61,7 +56,6 @@ export default function Signup({ handleLoginInputChange, handleSignup }) {
           onChange={handleLoginInputChange}
         />
         <TextField
-          id="outlined-basic"
           name="passwordConfirm"
           type="password"
           label="Confirm Password"

@@ -19,6 +19,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Avatar from '@material-ui/core/Avatar';
 
 export default function MyBookAccordion({
   info,
@@ -34,13 +35,13 @@ export default function MyBookAccordion({
   const authorArray = [];
   authorArray.push(info.author1);
   if (info.author2) {
-      authorArray.push(info.author2);
+    authorArray.push(info.author2);
   }
   if (info.author3) {
-      authorArray.push(info.author3);
+    authorArray.push(info.author3);
   }
   if (info.author4) {
-      authorArray.push(info.author4)
+    authorArray.push(info.author4);
   }
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -96,9 +97,9 @@ export default function MyBookAccordion({
   const removeFromMyBooks = () => {
     handleClose();
     axios.delete(`api/mybooks/${userId}/book/${info.id}`).then((response) => {
-        console.log(response);
-        getBooks();
-    })
+      console.log(response);
+      getBooks();
+    });
   };
 
   return (
@@ -113,7 +114,10 @@ export default function MyBookAccordion({
           id="panel1bh-header"
         >
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={1}>
+              <Avatar alt={info.title} src={info.image} />
+            </Grid>
+            <Grid item xs={5}>
               <Typography>{info.title}</Typography>
             </Grid>
             <Grid item xs={6}>
