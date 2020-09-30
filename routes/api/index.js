@@ -61,6 +61,7 @@ router.get('/mybooks/:id', isAuthenticated, (req, res) => {
   });
 });
 
+// remove a book from the user's MyBooks
 router.delete('/mybooks/:UserId/book/:bookId', (req, res) => {
   db.Book.destroy({
     where: {
@@ -72,6 +73,7 @@ router.delete('/mybooks/:UserId/book/:bookId', (req, res) => {
   });
 });
 
+// Add a book to MyBooks
 router.post('/addbook/:id', (req, res) => {
   console.log(req.body);
   db.Book.findOrCreate({
@@ -135,6 +137,7 @@ router.put('/mybooks/:userId/favorite-book/:bookid/remove', (req, res) => {
   });
 });
 
+// update a book to make it read
 router.put('/mybooks/:userId/read-book/:bookid', (req, res) => {
   db.Book.update({
     have_read: true,
@@ -149,6 +152,7 @@ router.put('/mybooks/:userId/read-book/:bookid', (req, res) => {
   });
 });
 
+// update book to make it unread
 router.put('/mybooks/:userId/unread-book/:bookid', (req, res) => {
   db.Book.update({
     have_read: false,
@@ -163,6 +167,7 @@ router.put('/mybooks/:userId/unread-book/:bookid', (req, res) => {
   });
 });
 
+// get all favorites associated to a user
 router.get('/myfavorites/:userId', (req, res) => {
   db.Book.findAll({
     where: {

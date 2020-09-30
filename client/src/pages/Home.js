@@ -50,7 +50,8 @@ export default function Home() {
         password: login.password
       };
       axios.post(`api/auth/signup`, signupObject).then((response) => {
-        console.log(response)
+        console.log(response);
+        setRender('login');
       })
     } else {
       console.log("Oops, we're missing a email or password")
@@ -97,6 +98,10 @@ export default function Home() {
     setSearch({});
   };
 
+  const clearResults = () => {
+    setSearchResults();
+  }
+
   return (
     <>
       <Navbar setRender={setRender} />
@@ -118,6 +123,7 @@ export default function Home() {
                 <Search
                   handleSearchInputChange={handleSearchInputChange}
                   handleSearch={handleSearch}
+                  clearResults={clearResults}
                 />
               </Grid>
             </Grid>

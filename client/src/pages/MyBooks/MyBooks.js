@@ -20,8 +20,7 @@ export default function MyBooks() {
     axios.get(`api/mybooks/${userId}`).then((response) => {
       console.log(response.data);
       const unReadBooks = response.data.filter(
-        (book) => book.have_read === false
-      );
+        (book) => book.have_read === false);
       const readBooks = response.data.filter((book) => book.have_read === true);
       setUnreadBooks(unReadBooks);
       setReadBooks(readBooks);

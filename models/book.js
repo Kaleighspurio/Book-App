@@ -18,7 +18,7 @@ module.exports = (sequelize, Datatypes) => {
     image: Datatypes.STRING,
     link: Datatypes.STRING,
     publisher: Datatypes.STRING,
-    publish_date: Datatypes.DATE,
+    publish_date: Datatypes.STRING,
     page_count: Datatypes.INTEGER,
     isbn: Datatypes.STRING,
     categories: Datatypes.STRING,

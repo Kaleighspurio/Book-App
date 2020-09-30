@@ -12,6 +12,7 @@ import BookRoundedIcon from '@material-ui/icons/BookRounded';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Button from '@material-ui/core/Button';
 import './BookCard.css';
+import Grid from "@material-ui/core/Grid";
 
 export default function BookCard({ info }) {
   const { isAuth, userId } = useContext(AuthContext);
@@ -97,8 +98,11 @@ export default function BookCard({ info }) {
       </Typography> 
       </>): null}
       </CardContent>
+      
       <CardActions disableSpacing>
-        { isAuth ? (
+        <Grid container>
+        <Grid item xs={12}>
+{ isAuth ? (
           <>
         <IconButton aria-label="add to favorites">
           <AddCircleOutlineIcon onClick={addToMyBooks} />
@@ -110,10 +114,16 @@ export default function BookCard({ info }) {
           <BookRoundedIcon />
         </IconButton>
         </> ) : null }
-
-        <Button size="small" color="primary">
+        </Grid>
+        <Grid item xs={12}>
+          <Button size="small" color="primary">
           Learn More
         </Button>
+        </Grid>
+      </Grid>
+        
+
+        
       </CardActions>
     </Card>
   );
