@@ -52,7 +52,7 @@ router.get('/search/author/:author', (req, res) => {
 // });
 
 // Add more googlebook routes for all possible search possiblities?
-router.get('/mybooks/:id', (req, res) => {
+router.get('/mybooks/:id', isAuthenticated, (req, res) => {
   db.Book.findAll({
     where: { UserId: req.params.id },
   }).then((data) => {
@@ -94,9 +94,25 @@ router.post('/addbook/:id', (req, res) => {
   });
 });
 
+// add book to favorites
 router.put('/mybooks/:userId/favorite-book/:bookid', (req, res) => {
   db.Book.update({
     is_favorite: true,
+  }, {
+    where: {
+      id: req.params.bookid,
+      UserId: req.params.userId,
+    },
+  }).then((response) => {
+    console.log(response);
+    res.json(response);
+  });
+});
+
+// remove book from favorites
+router.put('/mybooks/:userId/favorite-book/:bookid/remove', (req, res) => {
+  db.Book.update({
+    is_favorite: false,
   }, {
     where: {
       id: req.params.bookid,
@@ -133,6 +149,18 @@ router.put('/mybooks/:userId/unread-book/:bookid', (req, res) => {
   }).then((response) => {
     console.log(response);
     res.json(response);
+  });
+});
+
+router.get('/myfavorites/:userId', (req, res) => {
+  db.Book.findAll({
+    where: {
+      UserId: req.params.userId,
+      is_favorite: true,
+    },
+  }).then((data) => {
+    console.log(data);
+    res.json(data);
   });
 });
 

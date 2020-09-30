@@ -8,10 +8,12 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export default function Navbar({ setRender }) {
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth, logout } = useContext(AuthContext);
   const history = useHistory();
+
   return (
     <>
       <div>
@@ -24,13 +26,13 @@ export default function Navbar({ setRender }) {
               <Grid item>
                 {!isAuth ? (
                   <>
-                  <IconButton
-                  aria-label="search"
-                  color="inherit"
-                  onClick={() => setRender('search')}
-                >
-                  <SearchIcon />
-                </IconButton>                
+                    <IconButton
+                      aria-label="search"
+                      color="inherit"
+                      onClick={() => setRender('search')}
+                    >
+                      <SearchIcon />
+                    </IconButton>
                     <Button
                       size="small"
                       variant="contained"
@@ -48,20 +50,31 @@ export default function Navbar({ setRender }) {
                   </>
                 ) : (
                   <>
-                  <IconButton
-                  aria-label="search"
-                  color="inherit"
-                  onClick={() => history.push('/')}
-                >
-                  <SearchIcon />
-                </IconButton> 
-                <Button size="small" variant="contained"
-                onClick={() => history.push('/mybooks')}>
-                    My Books
-                  </Button>
-                  <Button size="small" variant="contained">
-                    logout
-                  </Button>
+                    <IconButton
+                      aria-label="search"
+                      color="inherit"
+                      onClick={() => history.push('/')}
+                    >
+                      <SearchIcon />
+                    </IconButton>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => history.push('/mybooks')}
+                    >
+                      My Books
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      onClick={() => history.push('/myfavorites')}
+                    >
+                      <FavoriteIcon fontSize="small" />
+                      My Favorites
+                    </Button>
+                    <Button size="small" variant="contained" onClick={logout}>
+                      logout
+                    </Button>
                   </>
                 )}
               </Grid>

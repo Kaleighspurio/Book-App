@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import MyBooks from './pages/MyBooks/MyBooks';
+import MyFavorites from './pages/MyFavorites/MyFavorites';
 import Navbar from './components/Navbar/Navbar';
 
 
@@ -47,6 +48,7 @@ function App() {
       <Route exact path='/login' compontent={Login} />
       <Route exact path='/signup' compontent={Signup} />
       <PrivateRoute exact path='/mybooks' component={MyBooks} />
+      <PrivateRoute exact path='/myfavorites' component={MyFavorites} />
       {/* <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/signup" render={props => <Signup {...props} />} />
         <PrivateRoute exact path="/members" component={Members} />

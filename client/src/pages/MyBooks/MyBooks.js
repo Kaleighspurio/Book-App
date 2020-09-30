@@ -40,7 +40,7 @@ export default function MyBooks() {
 
         <div>Read books</div>
         {readBooks.map((book) => (
-          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={'read'} />
+          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={'read'} showRead={true} />
         ))}
       </Container>
     </>

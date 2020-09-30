@@ -10,8 +10,9 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import BookRoundedIcon from '@material-ui/icons/BookRounded';
+import CancelIcon from '@material-ui/icons/Cancel';
 
-export default function MyBookAccordion({ info, getBooks, readStatus }) {
+export default function MyBookAccordion({ info, getBooks, readStatus, showRead, getFavoriteBooks }) {
   const [expanded, setExpanded] = React.useState(false);
   const { userId } = useContext(AuthContext);
 
@@ -21,35 +22,41 @@ export default function MyBookAccordion({ info, getBooks, readStatus }) {
 
   const addToFavorites = () => {
     // axios put to make favorite true
-    axios.put(`api/mybooks/${userId}/favorite-book/${info.id}`).then((response) => {
+    axios
+      .put(`api/mybooks/${userId}/favorite-book/${info.id}`)
+      .then((response) => {
         console.log(response);
-    });
+      });
   };
 
   const markAsRead = (readStat) => {
     // axios put to mark as read, or unread depending on current ...
-    console.log(readStat)
+    console.log(readStat);
     if (readStat === false) {
-       axios.put(`api/mybooks/${userId}/read-book/${info.id}`).then((response) => {
-        console.log(response)
-        getBooks()
-    }) 
+      axios
+        .put(`api/mybooks/${userId}/read-book/${info.id}`)
+        .then((response) => {
+          console.log(response);
+          getBooks();
+        });
     } else {
-        axios.put(`api/mybooks/${userId}/unread-book/${info.id}`).then((response) => {
-            console.log(response)
-            getBooks()
+      axios
+        .put(`api/mybooks/${userId}/unread-book/${info.id}`)
+        .then((response) => {
+          console.log(response);
+          getBooks();
         });
     }
-    
   };
 
-  const markAsUnRead = () => {
-    // axios put to mark as read, or unread depending on current ...
-    axios.put(`api/mybooks/${userId}/unread-book/${info.id}`).then((response) => {
-        console.log(response)
-        getBooks()
+  const removeFromFavorites = () => {
+    axios
+    .put(`api/mybooks/${userId}/favorite-book/${info.id}/remove`)
+    .then((response) => {
+      console.log(response);
+      getFavoriteBooks();
     });
-  };
+  }
 
   return (
     <div>
@@ -84,13 +91,26 @@ export default function MyBookAccordion({ info, getBooks, readStatus }) {
               <Typography>Pages: {info.page_count}</Typography>
               <Typography>Average Rating: {info.average_rating}</Typography>
               <Typography>ISBN: {info.isbn}</Typography>
-              <IconButton aria-label="add to favorites">
-                <FavoriteIcon onClick={addToFavorites} />
-              </IconButton>
-              <IconButton aria-label="mark as read" onClick={() => markAsRead(readStatus)} >
-             <BookRoundedIcon  />
-                <Typography>{readStatus === false ? 'Mark as Read' : "Mark as Unread" }</Typography>
-              </IconButton>
+              { showRead === true ? <IconButton
+                aria-label="add to favorites"
+                onClick={addToFavorites}
+              >
+                <FavoriteIcon />
+              </IconButton> : <IconButton
+                aria-label="remove from favorites"
+                onClick={removeFromFavorites}
+              >
+                <CancelIcon />
+              </IconButton>}
+              { showRead === true ? <IconButton
+                aria-label="mark as read"
+                onClick={() => markAsRead(readStatus)}
+              >
+                <BookRoundedIcon />
+                <Typography>
+                  {readStatus === false ? 'Mark as Read' : 'Mark as Unread'}
+                </Typography>
+              </IconButton> : null}
             </Grid>
           </Grid>
         </AccordionDetails>
