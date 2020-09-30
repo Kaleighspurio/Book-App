@@ -25,6 +25,7 @@ export default function BookCard({ info }) {
       return;
     }
     setSnackbarOpen(false);
+    setSnackbarMessage();
   };
 
   const addToMyBooks = () => {

@@ -20,7 +20,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Avatar from '@material-ui/core/Avatar';
-// import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarComponent from '../Snackbar/SnackbarComponent';
 
 export default function MyBookAccordion({
@@ -35,17 +34,14 @@ export default function MyBookAccordion({
   const [open, setOpen] = useState(false);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
- 
-
-  const handleFavoriteClick = () => {
-    setSnackbarOpen(true);
-  };
+  const [snackbarMessage, setSnackbarMessage] = useState();
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setSnackbarOpen(false);
+    setSnackbarMessage();
   };
 
   const authorArray = [];
@@ -69,31 +65,38 @@ export default function MyBookAccordion({
   };
 
   const addToFavorites = () => {
-    // axios put to make favorite true
     axios
       .put(`api/mybooks/${userId}/favorite-book/${info.id}`)
       .then((response) => {
         console.log(response);
-        handleFavoriteClick();
+        setSnackbarMessage(`${info.title} has been added to your Favorites`);
+        setSnackbarOpen(true);
       });
   };
 
   const markAsRead = (readStat) => {
-    // axios put to mark as read, or unread depending on current ...
     console.log(readStat);
     if (readStat === false) {
       axios
         .put(`api/mybooks/${userId}/read-book/${info.id}`)
         .then((response) => {
           console.log(response);
-          getBooks();
+          setSnackbarMessage(`You've read ${info.title}!`);
+          setSnackbarOpen(true);
+          setTimeout(() => {
+            getBooks();
+          }, 1500);
         });
     } else {
       axios
         .put(`api/mybooks/${userId}/unread-book/${info.id}`)
         .then((response) => {
           console.log(response);
-          getBooks();
+          setSnackbarMessage(`You've marked ${info.title} as unread!`);
+          setSnackbarOpen(true);
+          setTimeout(() => {
+            getBooks();
+          }, 1500);
         });
     }
   };
@@ -103,7 +106,13 @@ export default function MyBookAccordion({
       .put(`api/mybooks/${userId}/favorite-book/${info.id}/remove`)
       .then((response) => {
         console.log(response);
-        getFavoriteBooks();
+        setSnackbarMessage(
+          `${info.title} has been removed from your Favorites`
+        );
+        setSnackbarOpen(true);
+        setTimeout(() => {
+          getFavoriteBooks();
+        }, 2000);
       });
   };
 
@@ -115,7 +124,11 @@ export default function MyBookAccordion({
     handleClose();
     axios.delete(`api/mybooks/${userId}/book/${info.id}`).then((response) => {
       console.log(response);
-      getBooks();
+      setSnackbarMessage(`${info.title} has been removed from your Books`);
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        getBooks();
+      }, 1500);
     });
   };
 
@@ -214,7 +227,7 @@ export default function MyBookAccordion({
           <SnackbarComponent
             snackbarOpen={snackbarOpen}
             handleCloseSnackbar={handleCloseSnackbar}
-            message={`${info.title} has been added to your Favorites!`}
+            message={snackbarMessage}
           />
         </AccordionDetails>
       </Accordion>
