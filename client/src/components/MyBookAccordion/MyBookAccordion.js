@@ -80,17 +80,6 @@ export default function MyBookAccordion({ info, getBooks, readStatus, showRead, 
           <Grid container spacing={2}>
             <Grid item xs={2}>
               <img src={info.image} />
-            </Grid>
-            <Grid item xs={6}>
-              <Typography>{info.description}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography>Category: {info.categories}</Typography>
-              <Typography>Publisher: {info.publisher}</Typography>
-              <Typography>Publish Date: {info.publish_date}</Typography>
-              <Typography>Pages: {info.page_count}</Typography>
-              <Typography>Average Rating: {info.average_rating}</Typography>
-              <Typography>ISBN: {info.isbn}</Typography>
               { showRead === true ? <IconButton
                 aria-label="add to favorites"
                 onClick={addToFavorites}
@@ -107,10 +96,22 @@ export default function MyBookAccordion({ info, getBooks, readStatus, showRead, 
                 onClick={() => markAsRead(readStatus)}
               >
                 <BookRoundedIcon />
-                <Typography>
+                {/* <Typography>
                   {readStatus === false ? 'Mark as Read' : 'Mark as Unread'}
-                </Typography>
+                </Typography> */}
               </IconButton> : null}
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>{info.description}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography>Category: {info.categories}</Typography>
+              <Typography>Publisher: {info.publisher}</Typography>
+              <Typography>Publish Date: {info.publish_date}</Typography>
+              <Typography>Pages: {info.page_count}</Typography>
+              <Typography>Average Rating: {info.average_rating}</Typography>
+              <Typography>ISBN: {info.isbn}</Typography>
+              
             </Grid>
           </Grid>
         </AccordionDetails>

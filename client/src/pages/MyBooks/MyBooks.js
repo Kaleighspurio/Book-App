@@ -35,7 +35,7 @@ export default function MyBooks() {
       <Container maxWidth="md">
         <div>Unread books</div>
         {unreadBooks.map((book) => (
-          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={book.have_read} />
+          <MyBookAccordion key={book.id} info={book} getBooks={getBooks} readStatus={book.have_read} showRead={true} />
         ))}
 
         <div>Read books</div>
