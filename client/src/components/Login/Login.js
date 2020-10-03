@@ -31,10 +31,17 @@ export default function Login({ handleLogin, handleLoginInputChange }) {
           onChange={handleLoginInputChange}
         />
         <Button
+          type="submit"
           color="primary"
           fullWidth={true}
           variant="contained"
           onClick={handleLogin}
+          onKeyDown={event => {
+            event.preventDefault()
+            if (event.keycode === 13) {
+              handleLogin()
+            }
+          }}
         >
           Sign in
         </Button>

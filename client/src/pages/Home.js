@@ -29,6 +29,7 @@ export default function Home() {
   const history = useHistory();
 
   const handleLogin = (event) => {
+    event.preventDefault()
     if (login.email && login.password) {
       axios.post(`api/auth/login`, login).then((response) => {
         console.log(response);

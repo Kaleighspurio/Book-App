@@ -66,10 +66,17 @@ export default function Signup({ handleLoginInputChange, handleSignup }) {
           onChange={handleLoginInputChange}
         />
         <Button
+          type='submit'
           color="primary"
           fullWidth={true}
           variant="contained"
           onClick={handleSignup}
+          onKeyDown={event => {
+            event.preventDefault()
+            if (event.keycode === 13) {
+              handleSignup()
+            }
+          }}
         >
           Create Account
         </Button>
