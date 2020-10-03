@@ -7,13 +7,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import BookRoundedIcon from '@material-ui/icons/BookRounded';
+import InfoIcon from '@material-ui/icons/Info';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import Button from '@material-ui/core/Button';
 import './BookCard.css';
 import Grid from '@material-ui/core/Grid';
 import SnackbarComponent from '../Snackbar/SnackbarComponent';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function BookCard({ info }) {
   const { isAuth, userId } = useContext(AuthContext);
@@ -59,14 +58,7 @@ export default function BookCard({ info }) {
     });
   };
 
-  const addToFavorites = () => {
-    // User can only do this if they already added the book...
-    // axios put to make favorite true
-  };
-
-  const markAsRead = () => {
-    // axios put to mark as read, or unread depending on current ...
-  };
+  const openMoreInfoModal = () => {};
 
   return (
     <Card className="book-card" raised={true}>
@@ -126,27 +118,34 @@ export default function BookCard({ info }) {
       </CardContent>
 
       <CardActions disableSpacing>
-        <Grid container>
-          <Grid item xs={12}>
-            {isAuth ? (
-              <>
-                <IconButton aria-label="add to favorites">
-                  <AddCircleOutlineIcon onClick={addToMyBooks} />
-                </IconButton>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon onClick={addToFavorites} />
-                </IconButton>
-                <IconButton aria-label="mark as read">
-                  <BookRoundedIcon />
-                </IconButton>
-              </>
-            ) : null}
-          </Grid>
-          <Grid item xs={12}>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </Grid>
+        <Grid container spacing={3}>
+          {isAuth ? (
+            <>
+              <Grid item xs={3}>
+                <Tooltip title="Add to your Books">
+                  <IconButton aria-label="add to favorites">
+                    <AddCircleOutlineIcon onClick={addToMyBooks} />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+              <Grid item xs={9}>
+                <Tooltip title="Learn more">
+                  <IconButton>
+                    <InfoIcon
+                      aria-label="more info"
+                      onClick={openMoreInfoModal}
+                    />
+                  </IconButton>
+                </Tooltip>
+              </Grid>
+            </>
+          ) : (
+            <Tooltip title="Learn more">
+              <IconButton>
+                <InfoIcon aria-label="more info" onClick={openMoreInfoModal} />
+              </IconButton>
+            </Tooltip>
+          )}
         </Grid>
       </CardActions>
     </Card>

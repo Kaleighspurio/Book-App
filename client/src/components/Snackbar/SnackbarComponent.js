@@ -18,7 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 // And then must pass the following props:
 // * snackbarOpen={snackbarOpen}
 // * handleCloseSnackbar={handleCloseSnackbar}
-// * messgage={whatever message you want the snackbar to say}
+// * message={whatever message you want the snackbar to say}
 
 
 export default function SnackbarComponent({ message, snackbarOpen, handleCloseSnackbar }) {

@@ -1,8 +1,9 @@
 .book-card {
-    max-width: 200px;
+    width: 250px;
     margin: 5px;
 }
 
 .thumbnail-image {
     max-width: 200px;
+    height: 300px;
 }
