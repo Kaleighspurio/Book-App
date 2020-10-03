@@ -2,7 +2,11 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-export default function Search({ handleSearchInputChange, handleSearch, clearResults }) {
+export default function Search({
+  handleSearchInputChange,
+  handleSearch,
+  clearResults,
+}) {
   return (
     <form noValidate autoComplete="off">
       <TextField
@@ -26,10 +30,17 @@ export default function Search({ handleSearchInputChange, handleSearch, clearRes
         onChange={handleSearchInputChange}
       />
       <Button
+        type="submit"
         color="primary"
         fullWidth={true}
         variant="contained"
         onClick={handleSearch}
+        onKeyDown={(event) => {
+          event.preventDefault();
+          if (event.keycode === 13) {
+            handleSearch();
+          }
+        }}
       >
         Search
       </Button>

@@ -162,7 +162,7 @@ export default function MyBookAccordion({
         <AccordionDetails>
           <Grid container spacing={2}>
             <Grid item xs={2}>
-              <img src={info.image} />
+              <img src={info.image} alt={`book cover of ${info.title}`} />
               {myBooks === true ? (
                 <Tooltip title="Add to Favorite">
                   <IconButton

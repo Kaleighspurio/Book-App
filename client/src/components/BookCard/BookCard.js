@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../AuthContext';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
@@ -13,11 +13,18 @@ import './BookCard.css';
 import Grid from '@material-ui/core/Grid';
 import SnackbarComponent from '../Snackbar/SnackbarComponent';
 import Tooltip from '@material-ui/core/Tooltip';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 export default function BookCard({ info }) {
   const { isAuth, userId } = useContext(AuthContext);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState();
+  const [open, setOpen] = useState(false);
 
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') {
@@ -25,6 +32,10 @@ export default function BookCard({ info }) {
     }
     setSnackbarOpen(false);
     setSnackbarMessage();
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const addToMyBooks = () => {
@@ -58,96 +69,169 @@ export default function BookCard({ info }) {
     });
   };
 
-  const openMoreInfoModal = () => {};
+  const openMoreInfoModal = () => {
+    setOpen(true);
+  };
 
   return (
-    <Card className="book-card" raised={true}>
-      <SnackbarComponent
-        snackbarOpen={snackbarOpen}
-        handleCloseSnackbar={handleCloseSnackbar}
-        message={snackbarMessage}
-      />
-      {info.imageLinks ? (
-        <CardMedia
-          className="thumbnail-image"
-          component="img"
-          image={info.imageLinks.thumbnail || info.image}
-          alt="book cover"
+    <>
+      <Card className="book-card" raised={true}>
+        <SnackbarComponent
+          snackbarOpen={snackbarOpen}
+          handleCloseSnackbar={handleCloseSnackbar}
+          message={snackbarMessage}
         />
-      ) : info.image ? (
-        <CardMedia
-          className="thumbnail-image"
-          component="img"
-          image={info.image}
-          alt="book cover"
-        />
-      ) : (
-        <CardMedia
-          component="img"
-          className="thumbnail-image"
-          image="book-cover-placeholder.jpg"
-          alt="placeholder book cover"
-        />
-      )}
-      <CardContent>
-        <Typography variant="subtitle2" color="primary" component="p">
-          {info.title}
-        </Typography>
-        {info.authors ? (
-          info.authors.map((author) => (
-            <Typography variant="body2" color="textSecondary" component="p">
-              {author}
-            </Typography>
-          ))
-        ) : info.author1 ? (
-          <>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {info.author1}
-            </Typography>{' '}
-            <Typography variant="body2" color="textSecondary" component="p">
-              {info.author2}
-            </Typography>{' '}
-            <Typography variant="body2" color="textSecondary" component="p">
-              {info.author3}
-            </Typography>{' '}
-            <Typography variant="body2" color="textSecondary" component="p">
-              {info.author4}
-            </Typography>
-          </>
-        ) : null}
-      </CardContent>
-
-      <CardActions disableSpacing>
-        <Grid container spacing={3}>
-          {isAuth ? (
+        {info.imageLinks ? (
+          <CardMedia
+            className="thumbnail-image"
+            component="img"
+            image={info.imageLinks.thumbnail || info.image}
+            alt="book cover"
+          />
+        ) : info.image ? (
+          <CardMedia
+            className="thumbnail-image"
+            component="img"
+            image={info.image}
+            alt="book cover"
+          />
+        ) : (
+          <CardMedia
+            component="img"
+            className="thumbnail-image"
+            image="book-cover-placeholder.jpg"
+            alt="placeholder book cover"
+          />
+        )}
+        <CardContent>
+          <Typography variant="subtitle2" color="primary" component="p">
+            {info.title}
+          </Typography>
+          {info.authors ? (
+            info.authors.map((author) => (
+              <Typography variant="body2" color="textSecondary" component="p">
+                {author}
+              </Typography>
+            ))
+          ) : info.author1 ? (
             <>
-              <Grid item xs={3}>
-                <Tooltip title="Add to your Books">
-                  <IconButton aria-label="add to favorites">
-                    <AddCircleOutlineIcon onClick={addToMyBooks} />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
-              <Grid item xs={9}>
-                <Tooltip title="Learn more">
-                  <IconButton>
-                    <InfoIcon
-                      aria-label="more info"
-                      onClick={openMoreInfoModal}
-                    />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {info.author1}
+              </Typography>{' '}
+              <Typography variant="body2" color="textSecondary" component="p">
+                {info.author2}
+              </Typography>{' '}
+              <Typography variant="body2" color="textSecondary" component="p">
+                {info.author3}
+              </Typography>{' '}
+              <Typography variant="body2" color="textSecondary" component="p">
+                {info.author4}
+              </Typography>
             </>
-          ) : (
-            <Tooltip title="Learn more">
-              <IconButton>
-                <InfoIcon aria-label="more info" onClick={openMoreInfoModal} />
-              </IconButton>
-            </Tooltip>
-          )}
-        </Grid>
-      </CardActions>
-    </Card>
+          ) : null}
+        </CardContent>
+
+        <CardActions disableSpacing>
+          <Grid container spacing={3}>
+            {isAuth ? (
+              <>
+                <Grid item xs={3}>
+                  <Tooltip title="Add to your Books">
+                    <IconButton aria-label="add to favorites">
+                      <AddCircleOutlineIcon onClick={addToMyBooks} />
+                    </IconButton>
+                  </Tooltip>
+                </Grid>
+                <Grid item xs={9}>
+                  <Tooltip title="Learn more">
+                    <IconButton onClick={openMoreInfoModal}>
+                      <InfoIcon aria-label="more info" />
+                    </IconButton>
+                  </Tooltip>
+                </Grid>
+              </>
+            ) : (
+              <Tooltip title="Learn more">
+                <IconButton onClick={openMoreInfoModal}>
+                  <InfoIcon aria-label="more info" />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Grid>
+        </CardActions>
+      </Card>
+
+{/* This is the modal! */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth={true}
+      >
+        <DialogTitle id="alert-dialog-title">
+          About{' '}
+          <span className="booktitle-dialog">
+            <strong>
+              <em>{info.title}</em>
+            </strong>
+          </span>
+        </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
+              <div>
+                Author:{' '}
+                {info.authors
+                  ? info.authors.map((author) => (
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {author}
+                      </Typography>
+                    ))
+                  : null}
+              </div>
+              <div>
+                Pages:
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {info.pageCount}
+                </Typography>
+              </div>
+              <div>
+                Publisher:
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {info.publisher}
+                </Typography>
+              </div>
+              <div>
+                Date of Publish:
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {info.publishedDate}
+                </Typography>
+              </div>
+            </Grid>
+            <Grid item xs={9}>
+              {info.description ? (
+                <Typography variant="body2" component="p">
+                  {info.description}
+                </Typography>
+              ) : (
+                <Typography variant="body2" component="p">
+                  No description available...
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Done
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
