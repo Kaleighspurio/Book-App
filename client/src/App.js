@@ -49,10 +49,6 @@ function App() {
       <Route exact path='/signup' compontent={Signup} />
       <PrivateRoute exact path='/mybooks' component={MyBooks} />
       <PrivateRoute exact path='/myfavorites' component={MyFavorites} />
-      {/* <Route exact path="/login" render={props => <Login {...props} />} />
-        <Route exact path="/signup" render={props => <Signup {...props} />} />
-        <PrivateRoute exact path="/members" component={Members} />
-      </Switch> */}
       </Switch>
     </Router>
     </>
