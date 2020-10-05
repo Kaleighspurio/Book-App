@@ -16,6 +16,9 @@ export default function Home() {
   const [login, setLogin] = useState();
   const [render, setRender] = useState('search');
 
+  const [alertActive, setAlertActive] = useState(false);
+  const [alertMessage, setAlertMessage] = useState();
+
   const handleSearchInputChange = (event) => {
     const { name, value } = event.target;
     setSearch({ ...search, [name]: value });
@@ -29,16 +32,35 @@ export default function Home() {
   const history = useHistory();
 
   const handleLogin = (event) => {
-    event.preventDefault()
-    if (login.email && login.password) {
+    event.preventDefault();
+    if (login === undefined) {
+      setAlertMessage('Please enter your password and email');
+      setAlertActive(true)
+    } else {
+      if (login.email && login.password) {
       axios.post(`api/auth/login`, login).then((response) => {
         console.log(response);
         setIsAuth(true);
         setUserId(response.data.id);
+        setAlertActive(false);
         history.push('/mybooks');
-      })
+      }).catch((err) => {
+        setAlertMessage("There is no user that matches the password and email given.  Please try again, or create an account.");
+        setAlertActive(true);
+      });
     } else {
-      console.log("Oops, we're missing a email or password")
+      console.log("Oops, we're missing a email or password");
+      if (!login.email && ! login.password) {
+        setAlertMessage('Please enter your password and email');
+        setAlertActive(true)
+      } else if (!login.email) {
+        setAlertMessage("Please enter your email address");
+        setAlertActive(true)
+      } else if(!login.password) {
+        setAlertMessage("Please enter your password")
+        setAlertActive(true)
+      }
+    }
     }
   };
 
@@ -48,14 +70,14 @@ export default function Home() {
         firstName: login.firstName,
         lastName: login.lastName,
         email: login.email,
-        password: login.password
+        password: login.password,
       };
       axios.post(`api/auth/signup`, signupObject).then((response) => {
         console.log(response);
         setRender('login');
-      })
+      });
     } else {
-      console.log("Oops, we're missing a email or password")
+      console.log("Oops, we're missing a email or password");
     }
   };
 
@@ -101,7 +123,7 @@ export default function Home() {
 
   const clearResults = () => {
     setSearchResults();
-  }
+  };
 
   return (
     <>
@@ -125,6 +147,8 @@ export default function Home() {
                   handleSearchInputChange={handleSearchInputChange}
                   handleSearch={handleSearch}
                   clearResults={clearResults}
+                  alertActive={alertActive}
+                  alertMessage={alertMessage}
                 />
               </Grid>
             </Grid>
@@ -142,6 +166,8 @@ export default function Home() {
               <Login
                 handleLoginInputChange={handleLoginInputChange}
                 handleLogin={handleLogin}
+                alertActive={alertActive}
+                alertMessage={alertMessage}
               />
             </Grid>
           </Grid>
@@ -151,6 +177,8 @@ export default function Home() {
               <Signup
                 handleLoginInputChange={handleLoginInputChange}
                 handleSignup={handleSignup}
+                alertActive={alertActive}
+                alertMessage={alertMessage}
               />
             </Grid>
           </Grid>

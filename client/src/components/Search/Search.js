@@ -1,14 +1,18 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
 
 export default function Search({
   handleSearchInputChange,
   handleSearch,
   clearResults,
+  alertActive,
+  alertMessage
 }) {
   return (
     <form noValidate autoComplete="off">
+      { alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
       <TextField
         id="outlined-basic"
         name="keyword"
