@@ -18,6 +18,7 @@ export default function Home() {
 
   const [alertActive, setAlertActive] = useState(false);
   const [alertMessage, setAlertMessage] = useState();
+  const [successAlertActive, setSuccessAlertActive] = useState(false);
 
   const handleSearchInputChange = (event) => {
     const { name, value } = event.target;
@@ -35,49 +36,90 @@ export default function Home() {
     event.preventDefault();
     if (login === undefined) {
       setAlertMessage('Please enter your password and email');
-      setAlertActive(true)
+      setAlertActive(true);
     } else {
       if (login.email && login.password) {
-      axios.post(`api/auth/login`, login).then((response) => {
-        console.log(response);
-        setIsAuth(true);
-        setUserId(response.data.id);
-        setAlertActive(false);
-        history.push('/mybooks');
-      }).catch((err) => {
-        setAlertMessage("There is no user that matches the password and email given.  Please try again, or create an account.");
-        setAlertActive(true);
-      });
-    } else {
-      console.log("Oops, we're missing a email or password");
-      if (!login.email && ! login.password) {
-        setAlertMessage('Please enter your password and email');
-        setAlertActive(true)
-      } else if (!login.email) {
-        setAlertMessage("Please enter your email address");
-        setAlertActive(true)
-      } else if(!login.password) {
-        setAlertMessage("Please enter your password")
-        setAlertActive(true)
+        axios
+          .post(`api/auth/login`, login)
+          .then((response) => {
+            console.log(response);
+            setIsAuth(true);
+            setUserId(response.data.id);
+            setAlertActive(false);
+            setSuccessAlertActive(false);
+            setAlertMessage();
+            history.push('/mybooks');
+          })
+          .catch((err) => {
+            setAlertMessage(
+              'There is no user that matches the password and email given.  Please try again, or create an account.'
+            );
+            setAlertActive(true);
+          });
+      } else {
+        console.log("Oops, we're missing a email or password");
+        if (!login.email && !login.password) {
+          setAlertMessage('Please enter your password and email');
+          setAlertActive(true);
+        } else if (!login.email) {
+          setAlertMessage('Please enter your email address');
+          setAlertActive(true);
+        } else if (!login.password) {
+          setAlertMessage('Please enter your password');
+          setAlertActive(true);
+        }
       }
-    }
     }
   };
 
   const handleSignup = (event) => {
-    if (login.email && login.password && login.passwordConfirm) {
-      const signupObject = {
-        firstName: login.firstName,
-        lastName: login.lastName,
-        email: login.email,
-        password: login.password,
-      };
-      axios.post(`api/auth/signup`, signupObject).then((response) => {
-        console.log(response);
-        setRender('login');
-      });
+    event.preventDefault();
+    if (login === undefined) {
+      setAlertMessage(
+        'You are missing required information.  All fields are required...'
+      );
+      setAlertActive(true);
     } else {
-      console.log("Oops, we're missing a email or password");
+      if (
+        login.firstName &&
+        login.lastName &&
+        login.email &&
+        login.password &&
+        login.passwordConfirm
+      ) {
+        const signupObject = {
+          firstName: login.firstName,
+          lastName: login.lastName,
+          email: login.email,
+          password: login.password,
+        };
+        axios
+          .post(`api/auth/signup`, signupObject)
+          .then((response) => {
+            console.log(response);
+            if (response.data.name === 'SequelizeUniqueConstraintError') {
+              setAlertMessage('A user already exists with that email.')
+              setAlertActive(true);
+            } else {
+              setRender('login');
+              setAlertActive(false);
+              setSuccessAlertActive(true);
+              setAlertMessage(
+                'You have successfully signed up.  Please Login...'
+              );
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            setAlertMessage('Something went wrong... Check that all the fields are filled in and try again.');
+            setAlertActive(true);
+          });
+      } else {
+        setAlertMessage(
+          'You are missing a required field.  All fields are required...'
+        );
+        setAlertActive(true);
+      }
     }
   };
 
@@ -168,6 +210,7 @@ export default function Home() {
                 handleLogin={handleLogin}
                 alertActive={alertActive}
                 alertMessage={alertMessage}
+                successAlertActive={successAlertActive}
               />
             </Grid>
           </Grid>
