@@ -1,13 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../../AuthContext';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../components/Navbar/Navbar';
-import Search from '../components/Search/Search';
-import BookCard from '../components/BookCard/BookCard';
+import Navbar from '../../components/Navbar/Navbar';
+import Search from '../../components/Search/Search';
+import BookCard from '../../components/BookCard/BookCard';
 import Grid from '@material-ui/core/Grid';
-import Login from '../components/Login/Login';
-import Signup from '../components/Signup/Signup';
+import Login from '../../components/Login/Login';
+import Signup from '../../components/Signup/Signup';
+import './Home.css';
 
 export default function Home() {
   const { setIsAuth, userId, setUserId } = useContext(AuthContext);
@@ -187,7 +188,7 @@ export default function Home() {
   return (
     <>
       <Navbar setRender={setRender} />
-      <div>
+      <div className="home-page-container">
         {render === 'search' ? (
           <>
             <Grid container justify="center" spacing={3}>

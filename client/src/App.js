@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { AuthProvider, AuthContext } from './AuthContext';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import MyBooks from './pages/MyBooks/MyBooks';

@@ -1,0 +1,21 @@
+.nav-bar {
+    background-color: #202c59 !important;
+}
+
+.golden-font {
+    color: #E6BE60;
+}
+
+.search-button {
+    color: #FFF;
+    margin-right: 30px;
+}
+
+.nav-buttons {
+    margin: 5px !important;
+    background-color: #E6BE60 !important;
+}
+
+.fav-icon-nav {
+    margin: 3px;
+}

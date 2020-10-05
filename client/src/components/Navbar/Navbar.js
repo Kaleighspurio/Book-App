@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import './Navbar.css';
 
 export default function Navbar({ setRender }) {
   const { isAuth, logout } = useContext(AuthContext);
@@ -17,16 +18,19 @@ export default function Navbar({ setRender }) {
   return (
     <>
       <div>
-        <AppBar position="static" color="primary">
+        <AppBar position="static" className="nav-bar">
           <Toolbar>
             <Grid justify="space-between" container>
               <Grid item>
-                <Typography variant="h6">My Bookshelf</Typography>
+                <Typography className="golden-font" variant="h4">
+                  My Bookshelf
+                </Typography>
               </Grid>
               <Grid item>
                 {!isAuth ? (
                   <>
                     <IconButton
+                      className="search-button"
                       aria-label="search"
                       color="inherit"
                       onClick={() => setRender('search')}
@@ -34,6 +38,7 @@ export default function Navbar({ setRender }) {
                       <SearchIcon />
                     </IconButton>
                     <Button
+                      className="nav-buttons"
                       size="small"
                       variant="contained"
                       onClick={() => setRender('login')}
@@ -41,6 +46,7 @@ export default function Navbar({ setRender }) {
                       Login
                     </Button>
                     <Button
+                      className="nav-buttons"
                       size="small"
                       variant="contained"
                       onClick={() => setRender('signup')}
@@ -51,13 +57,15 @@ export default function Navbar({ setRender }) {
                 ) : (
                   <>
                     <IconButton
+                      className="search-button"
                       aria-label="search"
                       color="inherit"
                       onClick={() => history.push('/')}
                     >
-                      <SearchIcon />
+                      <SearchIcon className="search-button" />
                     </IconButton>
                     <Button
+                      className="nav-buttons"
                       size="small"
                       variant="contained"
                       onClick={() => history.push('/mybooks')}
@@ -65,14 +73,20 @@ export default function Navbar({ setRender }) {
                       My Books
                     </Button>
                     <Button
+                      className="nav-buttons"
                       size="small"
                       variant="contained"
                       onClick={() => history.push('/myfavorites')}
                     >
-                      <FavoriteIcon fontSize="small" />
+                      <FavoriteIcon className="fav-icon-nav" fontSize="small" />
                       My Favorites
                     </Button>
-                    <Button size="small" variant="contained" onClick={logout}>
+                    <Button
+                      className="nav-buttons"
+                      size="small"
+                      variant="contained"
+                      onClick={logout}
+                    >
                       logout
                     </Button>
                   </>
