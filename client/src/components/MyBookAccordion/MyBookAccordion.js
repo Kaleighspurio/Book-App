@@ -206,7 +206,6 @@ export default function MyBookAccordion({
               <Typography>{info.description}</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography>Category: {info.categories}</Typography>
               <Typography>Publisher: {info.publisher}</Typography>
               <Typography>Publish Date: {info.publish_date}</Typography>
               <Typography>Pages: {info.page_count}</Typography>

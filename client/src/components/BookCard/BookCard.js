@@ -53,7 +53,6 @@ export default function BookCard({ info }) {
       publish_date: info.publishedDate,
       page_count: info.pageCount,
       isbn: info.industryIdentifiers[0].identifier,
-      categories: info.categories[0],
       average_rating: info.averageRating,
       have_read: false,
       is_favorite: false,
