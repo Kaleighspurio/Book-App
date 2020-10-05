@@ -80,7 +80,10 @@ export default function Home() {
       );
       setAlertActive(true);
     } else {
-      if (
+      if (login.password && login.passwordConfirm && login.password !== login.passwordConfirm) {
+        setAlertMessage("Your passwords do not match");
+        setAlertActive(true);
+      } else if (
         login.firstName &&
         login.lastName &&
         login.email &&
@@ -99,6 +102,9 @@ export default function Home() {
             console.log(response);
             if (response.data.name === 'SequelizeUniqueConstraintError') {
               setAlertMessage('A user already exists with that email.');
+              setAlertActive(true);
+            } else if (response.data.name === 'SequelizeValidationError') {
+              setAlertMessage('Email must be a valid email address...');
               setAlertActive(true);
             } else {
               setRender('login');
