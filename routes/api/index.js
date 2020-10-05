@@ -12,7 +12,7 @@ router.get('/search/keyword/:keyword', (req, res) => {
   console.log(req.params);
   axios
     .get(
-      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}&country=US&maxResults=30&key=${process.env.API_KEY}`
+      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}&country=US&maxResults=30`
     )
     .then((response) => {
       res.json(response.data);
@@ -24,7 +24,7 @@ router.get('/search/keyword/:keyword/author/:author', (req, res) => {
   console.log(req.params);
   axios
     .get(
-      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+inauthor:${req.params.author}&maxResults=30&country=US&key=${process.env.API_KEY}`
+      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+inauthor:${req.params.author}&maxResults=30&country=US`
     )
     .then((response) => {
       res.json(response.data);
@@ -36,7 +36,7 @@ router.get('/search/author/:author', (req, res) => {
   console.log(req.params);
   axios
     .get(
-      `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.params.author}&country=US&maxResults=30&key=${process.env.API_KEY}`
+      `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.params.author}&country=US&maxResults=30`
     )
     .then((response) => {
       res.json(response.data);
