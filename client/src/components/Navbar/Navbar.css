@@ -5,6 +5,11 @@
 .golden-font {
     color: #E6BE60;
 }
+.nav-brand {
+    border: 2px solid #786452;
+    border-radius: 5px;
+    padding: 5px;
+}
 
 .search-button {
     color: #FFF;
@@ -19,3 +24,5 @@
 .fav-icon-nav {
     margin: 3px;
 }
+
+.log-out-button {}

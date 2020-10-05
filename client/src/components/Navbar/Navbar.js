@@ -22,7 +22,7 @@ export default function Navbar({ setRender }) {
           <Toolbar>
             <Grid justify="space-between" container>
               <Grid item>
-                <Typography className="golden-font" variant="h4">
+                <Typography className="golden-font nav-brand" variant="h4">
                   My Bookshelf
                 </Typography>
               </Grid>
@@ -82,7 +82,7 @@ export default function Navbar({ setRender }) {
                       My Favorites
                     </Button>
                     <Button
-                      className="nav-buttons"
+                      className="nav-buttons log-out-button"
                       size="small"
                       variant="contained"
                       onClick={logout}
