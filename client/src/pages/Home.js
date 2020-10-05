@@ -98,7 +98,7 @@ export default function Home() {
           .then((response) => {
             console.log(response);
             if (response.data.name === 'SequelizeUniqueConstraintError') {
-              setAlertMessage('A user already exists with that email.')
+              setAlertMessage('A user already exists with that email.');
               setAlertActive(true);
             } else {
               setRender('login');
@@ -111,7 +111,9 @@ export default function Home() {
           })
           .catch((err) => {
             console.log(err);
-            setAlertMessage('Something went wrong... Check that all the fields are filled in and try again.');
+            setAlertMessage(
+              'Something went wrong... Check that all the fields are filled in and try again.'
+            );
             setAlertActive(true);
           });
       } else {
@@ -132,9 +134,12 @@ export default function Home() {
         .then((response) => {
           console.log(response.data);
           if (response.data.totalItems === 0) {
-            console.log('No results for your search');
+            setAlertMessage('No results for your search');
+            setAlertActive(true);
           } else {
             setSearchResults(response.data.items);
+            setAlertMessage();
+            setAlertActive(false);
           }
         });
     } else if (search.keyword) {
@@ -142,9 +147,12 @@ export default function Home() {
       axios.get(`api/search/keyword/${search.keyword}`).then((response) => {
         console.log(response.data);
         if (response.data.totalItems === 0) {
-          console.log('No results for your search');
+          setAlertMessage('No results for your search');
+          setAlertActive(true);
         } else {
           setSearchResults(response.data.items);
+          setAlertMessage();
+          setAlertActive(false);
         }
       });
     } else if (search.author) {
@@ -152,15 +160,18 @@ export default function Home() {
       axios.get(`api/search/author/${search.author}`).then((response) => {
         console.log(response.data);
         if (response.data.totalItems === 0) {
-          console.log('No results for your search');
+          setAlertMessage('No results for your search');
+          setAlertActive(true);
         } else {
           setSearchResults(response.data.items);
+          setAlertMessage();
+          setAlertActive(false);
         }
       });
     } else if (!search.author && !search.keyword) {
-      console.log('Oops, you need to enter something to search by!');
+      setAlertMessage('Oops, you need to enter something to search by!');
+      setAlertActive(true);
     }
-    setSearch({});
   };
 
   const clearResults = () => {
