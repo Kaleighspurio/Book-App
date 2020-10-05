@@ -11,6 +11,7 @@ import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import MyBooks from './pages/MyBooks/MyBooks';
 import MyFavorites from './pages/MyFavorites/MyFavorites';
+import './App.css';
 
 
 // Even though this is the App.js file, in the end we are not exactly exporting
@@ -39,7 +40,7 @@ function App() {
   );
 
   return (
-    <>
+    <div className="App">
     <Router>
       {/* <Switch> */}
       <Switch>
@@ -50,7 +51,7 @@ function App() {
       <PrivateRoute exact path='/myfavorites' component={MyFavorites} />
       </Switch>
     </Router>
-    </>
+    </div>
   );
 }
 

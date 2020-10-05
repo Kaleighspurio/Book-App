@@ -29,14 +29,15 @@ export default function Navbar({ setRender }) {
               <Grid item>
                 {!isAuth ? (
                   <>
-                    <IconButton
+                    <Button
                       className="search-button"
                       aria-label="search"
-                      color="inherit"
+                      size="small"
+                      variant="contained"
                       onClick={() => setRender('search')}
                     >
-                      <SearchIcon />
-                    </IconButton>
+                      <SearchIcon />{" "}Search
+                    </Button>
                     <Button
                       className="nav-buttons"
                       size="small"
@@ -56,14 +57,15 @@ export default function Navbar({ setRender }) {
                   </>
                 ) : (
                   <>
-                    <IconButton
+                    <Button
                       className="search-button"
                       aria-label="search"
-                      color="inherit"
+                      size="small"
+                      variant="contained"
                       onClick={() => history.push('/')}
                     >
-                      <SearchIcon className="search-button" />
-                    </IconButton>
+                      <SearchIcon />{" "}Search
+                    </Button>
                     <Button
                       className="nav-buttons"
                       size="small"

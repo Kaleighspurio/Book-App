@@ -6,14 +6,16 @@
     color: #E6BE60;
 }
 .nav-brand {
-    border: 2px solid #786452;
-    border-radius: 5px;
-    padding: 5px;
+    border-top: 2px solid #56a3a6;
+    border-bottom: 2px solid #56a3a6;
+    padding: 5px 10px;
 }
 
 .search-button {
-    color: #FFF;
+    background-color: #56a3a6 !important;
     margin-right: 30px;
+    color: white !important;
+    margin: 5px !important;
 }
 
 .nav-buttons {
@@ -22,7 +24,7 @@
 }
 
 .fav-icon-nav {
-    margin: 3px;
+    margin: 0px 3px;
 }
 
 .log-out-button {}

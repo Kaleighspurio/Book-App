@@ -1,9 +1,26 @@
 .book-card {
     width: 250px;
     margin: 5px;
+    background-color: #98A4AE !important;
 }
 
 .thumbnail-image {
     max-width: 200px;
     height: 300px;
+    margin: auto;
+    padding-top: 3px;
+}
+
+.book-card-title {
+    color: #202c59;
+    font-size: 20px !important;
+}
+
+.book-card-authors {
+    color: #6A041d; 
+}
+
+.info-icon {
+    color: #202c59;
+    margin: 5px;
 }

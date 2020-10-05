@@ -85,14 +85,14 @@ export default function BookCard({ info }) {
             className="thumbnail-image"
             component="img"
             image={info.imageLinks.thumbnail || info.image}
-            alt="book cover"
+            alt={`book cover of ${info.title}`}
           />
         ) : info.image ? (
           <CardMedia
             className="thumbnail-image"
             component="img"
             image={info.image}
-            alt="book cover"
+            alt={`book cover of ${info.title}`}
           />
         ) : (
           <CardMedia
@@ -103,27 +103,27 @@ export default function BookCard({ info }) {
           />
         )}
         <CardContent>
-          <Typography variant="subtitle2" color="primary" component="p">
+          <Typography variant="subtitle2" className='book-card-title' component="h4">
             {info.title}
           </Typography>
           {info.authors ? (
             info.authors.map((author) => (
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography className='book-card-authors' variant="body2" component="p">
                 {author}
               </Typography>
             ))
           ) : info.author1 ? (
             <>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body2" className='book-card-authors' component="p">
                 {info.author1}
               </Typography>{' '}
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body2" className='book-card-authors' component="p">
                 {info.author2}
               </Typography>{' '}
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body2" className='book-card-authors' component="p">
                 {info.author3}
               </Typography>{' '}
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography variant="body2" className='book-card-authors' component="p">
                 {info.author4}
               </Typography>
             </>
@@ -144,7 +144,7 @@ export default function BookCard({ info }) {
                 <Grid item xs={9}>
                   <Tooltip title="Learn more">
                     <IconButton onClick={openMoreInfoModal}>
-                      <InfoIcon aria-label="more info" />
+                      <InfoIcon className="info-icon" aria-label="more info" />
                     </IconButton>
                   </Tooltip>
                 </Grid>
@@ -152,7 +152,7 @@ export default function BookCard({ info }) {
             ) : (
               <Tooltip title="Learn more">
                 <IconButton onClick={openMoreInfoModal}>
-                  <InfoIcon aria-label="more info" />
+                  <InfoIcon className="info-icon" aria-label="more info" />
                 </IconButton>
               </Tooltip>
             )}
