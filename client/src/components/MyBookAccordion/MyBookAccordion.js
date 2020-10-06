@@ -143,26 +143,40 @@ export default function MyBookAccordion({
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <Grid container spacing={2}>
-            <Grid item xs={1}>
-              <Avatar alt={info.title} src={info.image} />
+          <Grid container spacing={1}>
+            <Grid item xs={2}>
+              {info.image ? (
+                <Avatar alt={info.title} src={info.image} />
+              ) : (
+                <Avatar alt={info.title} src="./book-cover-placeholder.jpg" />
+              )}
             </Grid>
-            <Grid item xs={5}>
+            <Grid item>
               <Typography>
                 {info.title}
                 <br />
-                <Typography variant="caption">{info.subtitle}</Typography>
+                {authorArray.length > 1 ? (
+                  <Typography variant="caption">
+                    Authors: {authorArray.join(', ')}
+                  </Typography>
+                ) : (
+                  <Typography variant="caption">
+                    Author: {authorArray[0]}
+                  </Typography>
+                )}
               </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography>Author(s): {authorArray.join(', ')}</Typography>
             </Grid>
           </Grid>
         </AccordionSummary>
         <AccordionDetails>
           <Grid container spacing={2}>
-            <Grid item xs={2}>
+            <Grid item xs={5}>
               <img src={info.image} alt={`book cover of ${info.title}`} />
+              <Typography>Publisher: {info.publisher}</Typography>
+              <Typography>Publish Date: {info.publish_date}</Typography>
+              <Typography>Pages: {info.page_count}</Typography>
+              <Typography>Average Rating: {info.average_rating}</Typography>
+              <Typography>ISBN: {info.isbn}</Typography>
               {myBooks === true ? (
                 <Tooltip title="Add to Favorite">
                   <IconButton
@@ -201,16 +215,6 @@ export default function MyBookAccordion({
                   </IconButton>
                 </Tooltip>
               ) : null}
-            </Grid>
-            <Grid item xs={6}>
-              <Typography>{info.description}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography>Publisher: {info.publisher}</Typography>
-              <Typography>Publish Date: {info.publish_date}</Typography>
-              <Typography>Pages: {info.page_count}</Typography>
-              <Typography>Average Rating: {info.average_rating}</Typography>
-              <Typography>ISBN: {info.isbn}</Typography>
               {myBooks === true ? (
                 <Tooltip title="Remove from My Books">
                   <IconButton
@@ -221,6 +225,13 @@ export default function MyBookAccordion({
                   </IconButton>
                 </Tooltip>
               ) : null}
+            </Grid>
+            <Grid item xs={7}>
+              {info.description ? (
+                <Typography>{info.description}</Typography>
+              ) : (
+                <Typography>Description is not available...</Typography>
+              )}
             </Grid>
           </Grid>
           <SnackbarComponent
