@@ -210,7 +210,7 @@ export default function Home() {
                   Utilize the search to find books!  You may use the keyword search to look up a title, part of a title, or a keyword.  You may use the Author search to type part or all of an author's name.
                   <br/>
                   <br/>
-                  When your search results appear, you will be able to view the bookcover, title, and author.  By clicking the {<InfoIcon fontSize='small'/>} you can view more information about that particular book.
+                  When your search results appear, you will be able to view the bookcover, title, and author.  By clicking {<InfoIcon fontSize='small'/>} you can view more information about that particular book.
                   <br/>
                   <br/>
                   If you sign up for My Bookshelf, you have access to the 'My Books' and 'My Favorites' features where you can track books you've read, books you haven't read but would like to read, and you all time favorite books.  New users can create an account by clicking "SIGNUP".

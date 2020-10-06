@@ -21,6 +21,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Avatar from '@material-ui/core/Avatar';
 import SnackbarComponent from '../Snackbar/SnackbarComponent';
+import './MyBookAccordion.css';
 
 export default function MyBookAccordion({
   info,
@@ -28,6 +29,7 @@ export default function MyBookAccordion({
   readStatus,
   myBooks,
   getFavoriteBooks,
+  read
 }) {
   const [expanded, setExpanded] = useState(false);
   const { userId } = useContext(AuthContext);
@@ -132,9 +134,17 @@ export default function MyBookAccordion({
     });
   };
 
+  const getTheClassName = () => {
+    if (read === true) {
+      return 'read-books'
+    } else {
+      return 'unread-books'
+    }
+  }
+
   return (
     <div>
-      <Accordion
+      <Accordion className={getTheClassName()}
         expanded={expanded === 'panel1'}
         onChange={handleChange('panel1')}
       >
@@ -171,7 +181,7 @@ export default function MyBookAccordion({
         <AccordionDetails>
           <Grid container spacing={2}>
             <Grid item xs={5}>
-              <img src={info.image} alt={`book cover of ${info.title}`} />
+              <img src={info.image} alt={`book cover of ${info.title}`} className='accordion-img' />
               <Typography>Publisher: {info.publisher}</Typography>
               <Typography>Publish Date: {info.publish_date}</Typography>
               <Typography>Pages: {info.page_count}</Typography>

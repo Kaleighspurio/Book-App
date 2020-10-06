@@ -5,7 +5,8 @@ import Container from '@material-ui/core/Container';
 import Navbar from '../../components/Navbar/Navbar';
 import Grid from '@material-ui/core/Grid';
 import MyBookAccordion from '../../components/MyBookAccordion/MyBookAccordion';
-// import BookCard from '../../components/BookCard/BookCard';
+import Typography from '@material-ui/core/Typography';
+import './MyBooks.css';
 
 export default function MyBooks() {
   const { userId } = useContext(AuthContext);
@@ -33,12 +34,22 @@ export default function MyBooks() {
   return (
     <>
       <Navbar />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" className="mybooks-container">
+        <Typography align="center" className="heading-mybooks" variant="h2">
+          My Books
+        </Typography>
         <Grid container spacing={3}>
           <Grid item md={6} xs={12}>
-            <div>Unread books</div>
+            <Typography
+              variant="h4"
+              align="center"
+              className="read-unread-text"
+            >
+              Books I want to read...
+            </Typography>
             {unreadBooks.map((book) => (
               <MyBookAccordion
+                read={false}
                 key={book.id}
                 info={book}
                 getBooks={getBooks}
@@ -48,9 +59,16 @@ export default function MyBooks() {
             ))}
           </Grid>
           <Grid item md={6} xs={12}>
-            <div>Read books</div>
+            <Typography
+              variant="h4"
+              align="center"
+              className="read-unread-text"
+            >
+              Books I've read...
+            </Typography>
             {readBooks.map((book) => (
               <MyBookAccordion
+                read={true}
                 key={book.id}
                 info={book}
                 getBooks={getBooks}

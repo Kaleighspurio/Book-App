@@ -1,0 +1,22 @@
+.read-books {
+    background-color: #98A4AE !important;
+    border-top: solid 1px #ebebeb;
+    border-left: solid 1px #ebebeb;
+    border-right: solid 1px #ebebeb;
+    border-radius: 5px;
+}
+
+.unread-books {
+    background-color: #e6be60 !important;
+    border-top: solid 1px #202c59;
+    border-right: solid 1px #202c59;
+    border-left: solid 1px #202c59;
+    border-radius: 5px;
+}
+
+.accordion-img {
+    align-items: center !important;
+    width: 80%;
+    margin-bottom: 20px;
+    justify-content: center;
+}
