@@ -207,7 +207,7 @@ export default function Home() {
                   variant="body1"
                   className="home-text"
                 >
-                  Utilize the search to find books!  You may use the keyword search to look up a title, part of a title, or a keyword.  You may use the Author search to type part or all of an author's name.
+                  Utilize the search below to find books!  You may use the keyword search to look up a title, part of a title, or a keyword.  You may use the Author search to type part or all of an author's name.
                   <br/>
                   <br/>
                   When your search results appear, you will be able to view the bookcover, title, and author.  By clicking {<InfoIcon fontSize='small'/>} you can view more information about that particular book.
