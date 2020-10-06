@@ -116,6 +116,16 @@ export default function MyBooks() {
             >
               Filter
             </Button>
+            <Button
+              className="clear-button"
+              type="submit"
+              color="primary"
+              // fullWidth={true}
+              variant="contained"
+              onClick={getBooks}
+            >
+              Refresh Books
+            </Button>
           </Grid>
         </Grid>
 
