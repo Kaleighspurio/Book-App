@@ -55,7 +55,18 @@ export default function MyBooks() {
   };
 
   const sortByAuthor = () => {
-    
+    axios
+      .get(`api/mybooks/${userId}/author/${authorSearch}`)
+      .then((response) => {
+        console.log(response);
+        const unReadBooks = response.data.filter(
+          (book) => book.have_read === false
+        );
+        const readBooks = response.data.filter((book) => book.have_read === true);
+        setUnreadBooks(unReadBooks);
+        setReadBooks(readBooks);
+        setMyBooks(response.data);
+      });
   };
 
   return (
@@ -65,47 +76,49 @@ export default function MyBooks() {
         <Grid container justify="center">
           <Grid item xs={6}>
             <Typography align="center" className="heading-mybooks" variant="h2">
-          My Books
-        </Typography>
-        <FormControl>
-          <InputLabel id="demo-simple-select-helper-label">Author</InputLabel>
-          <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            value={authorSearch}
-            onChange={handleChange}
-            // variant='filled'
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {authorArray.map((author) => (
-              <MenuItem key={author} value={author}>
-                {author}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>Filter your books by author</FormHelperText>
-        </FormControl>
-        <Button
-        className='main-home-button'
-        type="submit"
-        color="primary"
-        // fullWidth={true}
-        variant="contained"
-        onClick={sortByAuthor}
-        onKeyDown={(event) => {
-          event.preventDefault();
-          if (event.keycode === 13) {
-            sortByAuthor();
-          }
-        }}
-      >
-        Filter
-      </Button>
+              My Books
+            </Typography>
+            <FormControl>
+              <InputLabel id="demo-simple-select-helper-label">
+                Author
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                value={authorSearch}
+                onChange={handleChange}
+                // variant='filled'
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {authorArray.map((author) => (
+                  <MenuItem key={author} value={author}>
+                    {author}
+                  </MenuItem>
+                ))}
+              </Select>
+              <FormHelperText>Filter your books by author</FormHelperText>
+            </FormControl>
+            <Button
+              className="main-home-button"
+              type="submit"
+              color="primary"
+              // fullWidth={true}
+              variant="contained"
+              onClick={sortByAuthor}
+              onKeyDown={(event) => {
+                event.preventDefault();
+                if (event.keycode === 13) {
+                  sortByAuthor();
+                }
+              }}
+            >
+              Filter
+            </Button>
           </Grid>
         </Grid>
-        
+
         <Grid container spacing={3}>
           <Grid item md={6} xs={12}>
             <Typography

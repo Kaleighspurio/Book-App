@@ -180,5 +180,17 @@ router.get('/myfavorites/:userId', (req, res) => {
   });
 });
 
+// get all my books of a certain author
+router.get('/mybooks/:userId/author/:author', (req, res) => {
+  db.Book.findAll({
+    where: {
+      UserId: req.params.userId,
+      author1: req.params.author,
+    },
+  }).then((data) => {
+    res.json(data);
+  });
+});
+
 
 module.exports = router;
