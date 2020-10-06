@@ -5,6 +5,8 @@ import axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
 import Search from '../../components/Search/Search';
 import BookCard from '../../components/BookCard/BookCard';
+import InfoIcon from '@material-ui/icons/Info';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Login from '../../components/Login/Login';
 import Signup from '../../components/Signup/Signup';
@@ -81,8 +83,12 @@ export default function Home() {
       );
       setAlertActive(true);
     } else {
-      if (login.password && login.passwordConfirm && login.password !== login.passwordConfirm) {
-        setAlertMessage("Your passwords do not match");
+      if (
+        login.password &&
+        login.passwordConfirm &&
+        login.password !== login.passwordConfirm
+      ) {
+        setAlertMessage('Your passwords do not match');
         setAlertActive(true);
       } else if (
         login.firstName &&
@@ -193,12 +199,22 @@ export default function Home() {
           <>
             <Grid container justify="center" spacing={3}>
               <Grid item xs={10} sm={8} md={8}>
-                <p>
-                  Search for books by keyword, part of a title, author, and/or
-                  subject. Logged in users can add books to their page and can
-                  mark them as read or unread, and add them as favorites to keep
-                  track of their reading history.
-                </p>
+                <Typography className="welcome" variant="h2" align="center">
+                  Welcome to My Bookshelf!
+                </Typography>
+                <Typography
+                  display="block"
+                  variant="body1"
+                  className="home-text"
+                >
+                  Utilize the search to find books!  You may use the keyword search to look up a title, part of a title, or a keyword.  You may use the Author search to type part or all of an author's name.
+                  <br/>
+                  <br/>
+                  When your search results appear, you will be able to view the bookcover, title, and author.  By clicking the {<InfoIcon fontSize='small'/>} you can view more information about that particular book.
+                  <br/>
+                  <br/>
+                  If you sign up for My Bookshelf, you have access to the 'My Books' and 'My Favorites' features where you can track books you've read, books you haven't read but would like to read, and you all time favorite books.  New users can create an account by clicking "SIGNUP".
+                </Typography>
               </Grid>
             </Grid>
             <Grid container justify="center">
@@ -212,7 +228,7 @@ export default function Home() {
                 />
               </Grid>
             </Grid>
-            <Grid container justify="center" className='bookcard-container'>
+            <Grid container justify="center" className="bookcard-container">
               {searchResults
                 ? searchResults.map((book) => (
                     <BookCard key={book.id} info={book.volumeInfo} />

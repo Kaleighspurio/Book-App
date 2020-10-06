@@ -14,7 +14,9 @@ export default function Signup({
 }) {
   return (
     <>
-      <Typography variant="h5">Create an account:</Typography>
+      <Typography className="login-signup-text" variant="h5">
+        Create an account:
+      </Typography>
       {alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
       <form noValidate autoComplete="off">
         <Grid container spacing={3}>
@@ -79,7 +81,7 @@ export default function Signup({
           onChange={handleLoginInputChange}
         />
         <Button
-          className='main-home-button'
+          className="main-home-button"
           type="submit"
           color="primary"
           fullWidth={true}

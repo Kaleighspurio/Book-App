@@ -14,7 +14,9 @@ export default function Login({
 }) {
   return (
     <>
-      <Typography variant="h5">Login in to an existing account:</Typography>
+      <Typography className="login-signup-text" variant="h5">
+        Login in to an existing account:
+      </Typography>
       {alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
       {successAlertActive ? (
         <Alert severity="success">{alertMessage}</Alert>
@@ -43,7 +45,7 @@ export default function Login({
           onChange={handleLoginInputChange}
         />
         <Button
-          className='main-home-button'
+          className="main-home-button"
           type="submit"
           color="primary"
           fullWidth={true}
