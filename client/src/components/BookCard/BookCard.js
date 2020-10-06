@@ -102,7 +102,7 @@ export default function BookCard({ info }) {
             alt="placeholder book cover"
           />
         )}
-        <CardContent>
+        <CardContent className='card-content'>
           <Typography variant="subtitle2" className='book-card-title' component="h4">
             {info.title}
           </Typography>
@@ -137,7 +137,7 @@ export default function BookCard({ info }) {
                 <Grid item xs={3}>
                   <Tooltip title="Add to your Books">
                     <IconButton aria-label="add to favorites">
-                      <AddCircleOutlineIcon onClick={addToMyBooks} />
+                      <AddCircleOutlineIcon onClick={addToMyBooks} className="info-icon" />
                     </IconButton>
                   </Tooltip>
                 </Grid>

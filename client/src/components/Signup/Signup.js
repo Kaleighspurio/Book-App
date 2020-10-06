@@ -4,16 +4,23 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
+import '../../pages/Home/Home.css';
 
-export default function Signup({ handleLoginInputChange, handleSignup, alertActive, alertMessage }) {
+export default function Signup({
+  handleLoginInputChange,
+  handleSignup,
+  alertActive,
+  alertMessage,
+}) {
   return (
     <>
       <Typography variant="h5">Create an account:</Typography>
-      { alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
+      {alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
       <form noValidate autoComplete="off">
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <TextField
+              className="form-input"
               name="firstName"
               type="text"
               label="First Name"
@@ -26,6 +33,7 @@ export default function Signup({ handleLoginInputChange, handleSignup, alertActi
           </Grid>
           <Grid item xs={6}>
             <TextField
+              className="form-input"
               name="lastName"
               type="text"
               label="Last Name"
@@ -38,6 +46,7 @@ export default function Signup({ handleLoginInputChange, handleSignup, alertActi
           </Grid>
         </Grid>
         <TextField
+          className="form-input"
           name="email"
           type="email"
           label="Email"
@@ -48,6 +57,7 @@ export default function Signup({ handleLoginInputChange, handleSignup, alertActi
           onChange={handleLoginInputChange}
         />
         <TextField
+          className="form-input"
           name="password"
           type="password"
           label="Password"
@@ -58,6 +68,7 @@ export default function Signup({ handleLoginInputChange, handleSignup, alertActi
           onChange={handleLoginInputChange}
         />
         <TextField
+          className="form-input"
           name="passwordConfirm"
           type="password"
           label="Confirm Password"
@@ -68,15 +79,16 @@ export default function Signup({ handleLoginInputChange, handleSignup, alertActi
           onChange={handleLoginInputChange}
         />
         <Button
-          type='submit'
+          className='main-home-button'
+          type="submit"
           color="primary"
           fullWidth={true}
           variant="contained"
           onClick={handleSignup}
-          onKeyDown={event => {
-            event.preventDefault()
+          onKeyDown={(event) => {
+            event.preventDefault();
             if (event.keycode === 13) {
-              handleSignup()
+              handleSignup();
             }
           }}
         >

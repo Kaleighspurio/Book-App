@@ -2,18 +2,20 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
+import '../../pages/Home/Home.css';
 
 export default function Search({
   handleSearchInputChange,
   handleSearch,
   clearResults,
   alertActive,
-  alertMessage
+  alertMessage,
 }) {
   return (
     <form noValidate autoComplete="off">
-      { alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
+      {alertActive ? <Alert severity="error">{alertMessage}</Alert> : null}
       <TextField
+        className="form-input"
         id="outlined-basic"
         name="keyword"
         label="Keyword"
@@ -24,6 +26,7 @@ export default function Search({
         onChange={handleSearchInputChange}
       />
       <TextField
+        className="form-input"
         id="outlined-basic"
         name="author"
         label="Author"
@@ -34,6 +37,7 @@ export default function Search({
         onChange={handleSearchInputChange}
       />
       <Button
+        className='main-home-button'
         type="submit"
         color="primary"
         fullWidth={true}
@@ -49,7 +53,7 @@ export default function Search({
         Search
       </Button>
       <Button
-        color="default"
+        className='clear-button'
         fullWidth={true}
         variant="contained"
         onClick={clearResults}

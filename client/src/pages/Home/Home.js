@@ -212,7 +212,7 @@ export default function Home() {
                 />
               </Grid>
             </Grid>
-            <Grid container justify="center">
+            <Grid container justify="center" className='bookcard-container'>
               {searchResults
                 ? searchResults.map((book) => (
                     <BookCard key={book.id} info={book.volumeInfo} />

@@ -1,3 +1,21 @@
 .home-page-container {
     margin: 40px 10px;
 }
+
+.bookcard-container {
+    margin-top: 50px;
+}
+
+.form-input {
+    background-color: #D1D7DB;
+}
+
+.main-home-button {
+    background-color: #202c59 !important;
+    margin: 20px 0 !important
+}
+
+.clear-button {
+    background-color: #6a041d !important;
+    color: #fff !important;
+}

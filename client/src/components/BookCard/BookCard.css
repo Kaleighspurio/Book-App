@@ -4,6 +4,11 @@
     background-color: #98A4AE !important;
 }
 
+.card-content {
+   height: 150px; 
+   overflow: hidden;
+}
+
 .thumbnail-image {
     max-width: 200px;
     height: 300px;
@@ -13,7 +18,7 @@
 
 .book-card-title {
     color: #202c59;
-    font-size: 20px !important;
+    font-size: 15px !important;
 }
 
 .book-card-authors {
