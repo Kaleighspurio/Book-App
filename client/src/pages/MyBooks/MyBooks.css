@@ -8,4 +8,23 @@
     color: #931F1D;
 }
 
+#demo-simple-select-helper {
+    width: 100% !important;
+    margin: auto !important;
+    align-items: 'center' !important;
+    justify-content: 'center' !important;
+}
 
+.filter-form {
+    align-items: center !important;
+    margin: 0 auto !important;
+    display: flex !important; 
+}
+
+.MuiSelect-selectMenu {
+    width: 100% !important;
+}
+
+.MuiInputBase-input {
+    width: 100% !important;
+}

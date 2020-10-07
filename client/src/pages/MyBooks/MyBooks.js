@@ -37,6 +37,7 @@ export default function MyBooks() {
       setReadBooks(readBooks);
       setMyBooks(response.data);
       makeAuthorArray(response.data);
+      setAuthorSearch('');
     });
   };
 
@@ -73,21 +74,21 @@ export default function MyBooks() {
     <>
       <Navbar />
       <Container maxWidth="lg" className="mybooks-container">
-        <Grid container justify="center">
+        <Grid container justify="center" alignContent='center' alignItems='center'>
           <Grid item xs={6}>
             <Typography align="center" className="heading-mybooks" variant="h2">
               My Books
             </Typography>
-            <FormControl>
-              <InputLabel id="demo-simple-select-helper-label">
+            <FormControl className="filter-form">
+              <InputLabel id="helper-label">
                 Author
               </InputLabel>
-              <Select
-                labelId="demo-simple-select-helper-label"
+                <Select
+                fullWidth='true'
+                labelId="helper-label"
                 id="demo-simple-select-helper"
                 value={authorSearch}
                 onChange={handleChange}
-                // variant='filled'
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -98,15 +99,15 @@ export default function MyBooks() {
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText>Filter your books by author</FormHelperText>
+              <FormHelperText>Filter your books by author</FormHelperText>              
             </FormControl>
             <Button
               className="main-home-button"
               type="submit"
               color="primary"
-              // fullWidth={true}
               variant="contained"
               onClick={sortByAuthor}
+              fullWidth='true'
               onKeyDown={(event) => {
                 event.preventDefault();
                 if (event.keycode === 13) {
@@ -120,11 +121,11 @@ export default function MyBooks() {
               className="clear-button"
               type="submit"
               color="primary"
-              // fullWidth={true}
               variant="contained"
               onClick={getBooks}
+              fullWidth='true'
             >
-              Refresh Books
+              Refresh
             </Button>
           </Grid>
         </Grid>
