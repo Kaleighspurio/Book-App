@@ -3,66 +3,70 @@ const axios = require('axios');
 const db = require('../../models');
 const isAuthenticated = require('../../config/middleware/isAuthenticated');
 
-router.get('/secrets', isAuthenticated, (req, res) => {
-  res.json('Talk is cheap. Show me the code. -Linus Torvalds');
-});
-
 // Get from Google Books by keyword
 router.get('/search/keyword/:keyword', (req, res) => {
-  console.log(req.params);
   axios
     .get(
-      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}&country=US&maxResults=30`
+      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}&country=US&maxResults=30`,
     )
     .then((response) => {
       res.json(response.data);
+    }).catch((err) => {
+      res.status(500).json({
+        message: 'An error occurred',
+        error: err,
+      });
     });
 });
 
 // Get from Google Books by keyword and author
 router.get('/search/keyword/:keyword/author/:author', (req, res) => {
-  console.log(req.params);
   axios
     .get(
-      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+inauthor:${req.params.author}&maxResults=30&country=US`
+      `https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+inauthor:${req.params.author}&maxResults=30&country=US`,
     )
     .then((response) => {
       res.json(response.data);
+    }).catch((err) => {
+      res.status(500).json({
+        message: 'An error occurred',
+        error: err,
+      });
     });
 });
 
 // Get from Google Books by author only
 router.get('/search/author/:author', (req, res) => {
-  console.log(req.params);
   axios
     .get(
-      `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.params.author}&country=US&maxResults=30`
+      `https://www.googleapis.com/books/v1/volumes?q=inauthor:${req.params.author}&country=US&maxResults=30`,
     )
     .then((response) => {
       res.json(response.data);
+    }).catch((err) => {
+      res.status(500).json({
+        message: 'An error occurred',
+        error: err,
+      });
     });
 });
-
-// // Get from google books by keyword adn subject
-// router.get('/search/keyword/:keyword/subject/:subject', (req, res) => {
-//   console.log(req.params);
-//   axios.get(`https://www.googleapis.com/books/v1/volumes?q=${req.params.keyword}+suject:${req.params.subject}&maxResults=30&key=${process.env.API_KEY}`).then((response) => {
-//     res.json(response.data);
-//   });
-// });
 
 // Add more googlebook routes for all possible search possiblities?
 router.get('/mybooks/:id', isAuthenticated, (req, res) => {
   db.Book.findAll({
     where: { UserId: req.params.id },
   }).then((data) => {
-    console.log(data);
     res.json(data);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // remove a book from the user's MyBooks
-router.delete('/mybooks/:UserId/book/:bookId', (req, res) => {
+router.delete('/mybooks/:UserId/book/:bookId', isAuthenticated, (req, res) => {
   db.Book.destroy({
     where: {
       UserId: req.params.UserId,
@@ -70,12 +74,16 @@ router.delete('/mybooks/:UserId/book/:bookId', (req, res) => {
     },
   }).then((data) => {
     res.json(data);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // Add a book to MyBooks
-router.post('/addbook/:id', (req, res) => {
-  console.log(req.body);
+router.post('/addbook/:id', isAuthenticated, (req, res) => {
   db.Book.findOrCreate({
     where: { UserId: req.params.id, isbn: req.body.isbn },
     defaults: {
@@ -97,18 +105,23 @@ router.post('/addbook/:id', (req, res) => {
       have_read: false,
       is_favorite: false,
       UserId: req.params.id,
-    }
+    },
   }).then(([book, created]) => {
     console.log(book.get({
       plain: true,
     }));
     console.log(created);
     res.json(book);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // add book to favorites
-router.put('/mybooks/:userId/favorite-book/:bookid', (req, res) => {
+router.put('/mybooks/:userId/favorite-book/:bookid', isAuthenticated, (req, res) => {
   db.Book.update({
     is_favorite: true,
   }, {
@@ -117,13 +130,17 @@ router.put('/mybooks/:userId/favorite-book/:bookid', (req, res) => {
       UserId: req.params.userId,
     },
   }).then((response) => {
-    console.log(response);
     res.json(response);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // remove book from favorites
-router.put('/mybooks/:userId/favorite-book/:bookid/remove', (req, res) => {
+router.put('/mybooks/:userId/favorite-book/:bookid/remove', isAuthenticated, (req, res) => {
   db.Book.update({
     is_favorite: false,
   }, {
@@ -132,13 +149,17 @@ router.put('/mybooks/:userId/favorite-book/:bookid/remove', (req, res) => {
       UserId: req.params.userId,
     },
   }).then((response) => {
-    console.log(response);
     res.json(response);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // update a book to make it read
-router.put('/mybooks/:userId/read-book/:bookid', (req, res) => {
+router.put('/mybooks/:userId/read-book/:bookid', isAuthenticated, (req, res) => {
   db.Book.update({
     have_read: true,
   }, {
@@ -147,13 +168,17 @@ router.put('/mybooks/:userId/read-book/:bookid', (req, res) => {
       UserId: req.params.userId,
     },
   }).then((response) => {
-    console.log(response);
     res.json(response);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // update book to make it unread
-router.put('/mybooks/:userId/unread-book/:bookid', (req, res) => {
+router.put('/mybooks/:userId/unread-book/:bookid', isAuthenticated, (req, res) => {
   db.Book.update({
     have_read: false,
   }, {
@@ -162,26 +187,34 @@ router.put('/mybooks/:userId/unread-book/:bookid', (req, res) => {
       UserId: req.params.userId,
     },
   }).then((response) => {
-    console.log(response);
     res.json(response);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // get all favorites associated to a user
-router.get('/myfavorites/:userId', (req, res) => {
+router.get('/myfavorites/:userId', isAuthenticated, (req, res) => {
   db.Book.findAll({
     where: {
       UserId: req.params.userId,
       is_favorite: true,
     },
   }).then((data) => {
-    console.log(data);
     res.json(data);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 
 // get all my books of a certain author
-router.get('/mybooks/:userId/author/:author', (req, res) => {
+router.get('/mybooks/:userId/author/:author', isAuthenticated, (req, res) => {
   db.Book.findAll({
     where: {
       UserId: req.params.userId,
@@ -189,6 +222,11 @@ router.get('/mybooks/:userId/author/:author', (req, res) => {
     },
   }).then((data) => {
     res.json(data);
+  }).catch((err) => {
+    res.status(500).json({
+      message: 'An error occurred',
+      error: err,
+    });
   });
 });
 

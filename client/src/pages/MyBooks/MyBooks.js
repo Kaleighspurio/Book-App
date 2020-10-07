@@ -28,7 +28,6 @@ export default function MyBooks() {
 
   const getBooks = () => {
     axios.get(`api/mybooks/${userId}`).then((response) => {
-      console.log(response.data);
       const unReadBooks = response.data.filter(
         (book) => book.have_read === false
       );
@@ -51,7 +50,6 @@ export default function MyBooks() {
       arrayOfAuthors.push(book.author1);
     });
     const uniqueAuthors = [...new Set(arrayOfAuthors)];
-    console.log(uniqueAuthors);
     setAuthorArray(uniqueAuthors);
   };
 
@@ -59,7 +57,6 @@ export default function MyBooks() {
     axios
       .get(`api/mybooks/${userId}/author/${authorSearch}`)
       .then((response) => {
-        console.log(response);
         const unReadBooks = response.data.filter(
           (book) => book.have_read === false
         );
@@ -84,7 +81,7 @@ export default function MyBooks() {
                 Author
               </InputLabel>
                 <Select
-                fullWidth='true'
+                fullWidth={true}
                 labelId="helper-label"
                 id="demo-simple-select-helper"
                 value={authorSearch}
@@ -107,7 +104,7 @@ export default function MyBooks() {
               color="primary"
               variant="contained"
               onClick={sortByAuthor}
-              fullWidth='true'
+              fullWidth={true}
               onKeyDown={(event) => {
                 event.preventDefault();
                 if (event.keycode === 13) {
@@ -123,7 +120,7 @@ export default function MyBooks() {
               color="primary"
               variant="contained"
               onClick={getBooks}
-              fullWidth='true'
+              fullWidth={true}
             >
               Refresh
             </Button>

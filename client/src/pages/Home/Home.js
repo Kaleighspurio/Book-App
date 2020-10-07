@@ -45,7 +45,6 @@ export default function Home() {
         axios
           .post(`api/auth/login`, login)
           .then((response) => {
-            console.log(response);
             setIsAuth(true);
             setUserId(response.data.id);
             setAlertActive(false);
@@ -60,7 +59,6 @@ export default function Home() {
             setAlertActive(true);
           });
       } else {
-        console.log("Oops, we're missing a email or password");
         if (!login.email && !login.password) {
           setAlertMessage('Please enter your password and email');
           setAlertActive(true);
@@ -106,7 +104,6 @@ export default function Home() {
         axios
           .post(`api/auth/signup`, signupObject)
           .then((response) => {
-            console.log(response);
             if (response.data.name === 'SequelizeUniqueConstraintError') {
               setAlertMessage('A user already exists with that email.');
               setAlertActive(true);
@@ -141,11 +138,9 @@ export default function Home() {
   const handleSearch = (event) => {
     event.preventDefault();
     if (search.keyword && search.author) {
-      console.log('Searched both parameters');
       axios
         .get(`api/search/keyword/${search.keyword}/author/${search.author}`)
         .then((response) => {
-          console.log(response.data);
           if (response.data.totalItems === 0) {
             setAlertMessage('No results for your search');
             setAlertActive(true);
@@ -156,9 +151,7 @@ export default function Home() {
           }
         });
     } else if (search.keyword) {
-      console.log('keyword only');
       axios.get(`api/search/keyword/${search.keyword}`).then((response) => {
-        console.log(response.data);
         if (response.data.totalItems === 0) {
           setAlertMessage('No results for your search');
           setAlertActive(true);
@@ -169,9 +162,7 @@ export default function Home() {
         }
       });
     } else if (search.author) {
-      console.log('Author only');
       axios.get(`api/search/author/${search.author}`).then((response) => {
-        console.log(response.data);
         if (response.data.totalItems === 0) {
           setAlertMessage('No results for your search');
           setAlertActive(true);

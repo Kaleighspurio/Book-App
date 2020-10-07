@@ -70,19 +70,16 @@ export default function MyBookAccordion({
     axios
       .put(`api/mybooks/${userId}/favorite-book/${info.id}`)
       .then((response) => {
-        console.log(response);
         setSnackbarMessage(`${info.title} has been added to your Favorites`);
         setSnackbarOpen(true);
       });
   };
 
   const markAsRead = (readStat) => {
-    console.log(readStat);
     if (readStat === false) {
       axios
         .put(`api/mybooks/${userId}/read-book/${info.id}`)
         .then((response) => {
-          console.log(response);
           setSnackbarMessage(`You've read ${info.title}!`);
           setSnackbarOpen(true);
           setTimeout(() => {
@@ -93,7 +90,6 @@ export default function MyBookAccordion({
       axios
         .put(`api/mybooks/${userId}/unread-book/${info.id}`)
         .then((response) => {
-          console.log(response);
           setSnackbarMessage(`You've marked ${info.title} as unread!`);
           setSnackbarOpen(true);
           setTimeout(() => {
@@ -107,7 +103,6 @@ export default function MyBookAccordion({
     axios
       .put(`api/mybooks/${userId}/favorite-book/${info.id}/remove`)
       .then((response) => {
-        console.log(response);
         setSnackbarMessage(
           `${info.title} has been removed from your Favorites`
         );
@@ -125,7 +120,6 @@ export default function MyBookAccordion({
   const removeFromMyBooks = () => {
     handleClose();
     axios.delete(`api/mybooks/${userId}/book/${info.id}`).then((response) => {
-      console.log(response);
       setSnackbarMessage(`${info.title} has been removed from your Books`);
       setSnackbarOpen(true);
       setTimeout(() => {

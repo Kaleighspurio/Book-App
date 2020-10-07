@@ -17,7 +17,6 @@ export default function MyFavorites() {
 
   const getFavoriteBooks = () => {
     axios.get(`api/myfavorites/${userId}`).then((response) => {
-      console.log(response);
       setFavoriteBooks(response.data);
     });
   };

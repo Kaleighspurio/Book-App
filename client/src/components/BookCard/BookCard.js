@@ -59,10 +59,6 @@ export default function BookCard({ info }) {
     };
     // axios post to book table
     axios.post(`api/addbook/${userId}`, bookObject).then((response) => {
-      console.log(response);
-      console.log(
-        `${response.data.title} was successfully added to your books`
-      );
       setSnackbarMessage(`${response.data.title} was added to your books!`);
       setSnackbarOpen(true);
     });
