@@ -1,25 +1,37 @@
-# **React-Sequelize with Passport Authentication**
+# My Bookshelf
 
-## A full-stack application template complete with passport local strategy authentication
-### **Stack:**
-* node and express 
-* sequelize ORM
-* passport js authentication
+## Description
+This is a full stack application using Google Books API and a MySQL database that allows the user to search for books by author or keyword/title.  Users can also create an account all CRUD operations are used to allow users to save books, mark them as 'read' or 'unread', favorite books, and remove books from their account.  On their "My Books" page, they can view any books they have saved and can also filter those books by author.
+
+## Link and demo login
+This app is deployed on Heroku:  [https://intense-eyrie-62668.herokuapp.com/](https://intense-eyrie-62668.herokuapp.com/)
+Use the following email and password as a demo login:
+<br/>
+email:  `demo@email.com`
+<br/>
+password: `password`
+
+## Technologies used
+* React
+* MySQL
+* Node
+* Express
+* Axios
+* Sequelize
+* Google Books API
+* Material ui
+* Passport
 * create-react-app
+* Heroku
 
-### **How to Use This Template**
-* click "use template" next to the clone button, this will create a new repository on *your* github account
-* clone the repository down to your machine
-* create a mySql database named as you like
-* run &nbsp; `npm install`
-* run &nbsp; `touch .env` &nbsp;in the root of your repository
-* open the .env file
-* add the four environmental variables that will be used to connect to the database:
-    <br/>       `DB_PASSWORD=yourpassword`
-    <br/>       `DB_HOST=127.0.0.1`
-    <br/>       `DB_USER=root`
-    <br/>       `DB_NAME=yourDBname`
+## Demonstrations
 
-* In development, the server and client are started separately.
-* run &nbsp; `npm start` in the root of the project to start the server
-* run &nbsp; `npm start` in the root of the client folder to start the client
+### Login and search:<br/>
+![login and search](client/public/ezgif.com-gif-maker.gif)
+
+### My Books and favorites:<br/>
+![My Books and favorites](client/public/demo2.gif)
+
+
+## Created by:
+Kaleigh Spurio
