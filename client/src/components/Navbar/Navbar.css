@@ -29,4 +29,11 @@
     color: #931F1D;
 }
 
-.log-out-button {}
+@media only screen and (max-width: 470px) {
+    .search-button {
+      width: 100%;
+    }
+    .nav-buttons {
+        width: 100%;
+      }
+  }
